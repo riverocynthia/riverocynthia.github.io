@@ -2,46 +2,46 @@
    Valores crudos. No se usan directamente en componentes: se referencian
    desde la capa semántica. */
 :root {
-  /* Azul (marca) */
-  --blue-50:  #f0f7fd;
-  --blue-100: #dcecf9;
-  --blue-200: #b9d9f3;
-  --blue-300: #6fb3e6;
-  --blue-400: #2a8fd4;
-  --blue-500: #1e6fa8;
-  --blue-600: #17507c;
+  /* Azul Rafiki (marca) */
+  --blue-50:  #f1f5fb;
+  --blue-100: #dfe8f5;
+  --blue-200: #bccde6;
+  --blue-300: #8da8d0;
+  --blue-400: #6a8bbb;
+  --blue-500: #4a6ea2;
+  --blue-600: #3c5b88;
   --blue-700: #1a3a5c;
   --blue-800: #0d2240;
   --blue-900: #0a1628;
   --blue-950: #060e1a;
 
-  /* Celeste */
-  --cyan-50:  #ecfaff;
-  --cyan-100: #d0f2fe;
-  --cyan-200: #a6e7fd;
-  --cyan-300: #7dd3fc;
-  --cyan-400: #38bdf8;
-  --cyan-500: #0ea5e9;
-  --cyan-600: #0284c7;
-  --cyan-700: #0369a1;
-  --cyan-800: #075985;
-  --cyan-900: #0c4a6e;
-  --cyan-950: #082f49;
+  /* Celeste Stitch */
+  --cyan-50:  #ecf9fe;
+  --cyan-100: #d7f4fd;
+  --cyan-200: #b5ebfb;
+  --cyan-300: #95e1f8;
+  --cyan-400: #74d5f3;
+  --cyan-500: #4bb6dc;
+  --cyan-600: #2c8eb9;
+  --cyan-700: #226b8d;
+  --cyan-800: #235974;
+  --cyan-900: #1e4357;
+  --cyan-950: #162b37;
 
-  /* Naranja (acento) */
-  --orange-50:  #fff7ed;
-  --orange-100: #ffedd5;
-  --orange-200: #fed7aa;
-  --orange-300: #fdba74;
-  --orange-400: #fb923c;
-  --orange-500: #f97316;
-  --orange-600: #ea580c;
-  --orange-700: #c2410c;
-  --orange-800: #9a3412;
-  --orange-900: #7c2d12;
-  --orange-950: #431407;
+  /* Naranja Hércules (acento) */
+  --orange-50:  #fff6ec;
+  --orange-100: #ffe8cf;
+  --orange-200: #ffcf9f;
+  --orange-300: #fdb06a;
+  --orange-400: #f98e34;
+  --orange-500: #f47404;
+  --orange-600: #d85a04;
+  --orange-700: #b83403;
+  --orange-800: #8e2a0c;
+  --orange-900: #6e1c08;
+  --orange-950: #3d0e04;
 
-  /* Grises */
+  /* Gris Dumbo */
   --gray-50:  #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
@@ -55,15 +55,29 @@
   --gray-950: #020617;
 
   /* Estado */
+  /* Verde (éxito) */
+  --green-50:  #f0fdf4;
   --green-100: #dcfce7;
+  --green-300: #86efac;
   --green-500: #22c55e;
   --green-700: #15803d;
-  --red-100:   #fee2e2;
-  --red-500:   #ef4444;
-  --red-700:   #b91c1c;
+  --green-900: #14532d;
+
+  /* Amarillo (advertencia) */
+  --amber-50:  #fffbeb;
   --amber-100: #fef3c7;
+  --amber-300: #fcd34d;
   --amber-500: #f59e0b;
-  --amber-800: #92400e;
+  --amber-700: #92400e;
+  --amber-900: #78350f;
+
+  /* Rojo (error) */
+  --red-50:  #fef2f2;
+  --red-100: #fee2e2;
+  --red-300: #fca5a5;
+  --red-500: #ef4444;
+  --red-700: #b91c1c;
+  --red-900: #7f1d1d;
 
   --white: #ffffff;
 
@@ -99,7 +113,9 @@
   --shadow-lg: 0 12px 32px rgba(10, 22, 40, 0.14);
 
   /* Tipografía */
-  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Por rol: títulos (Nunito), texto y botones (Nunito Sans), mono SOLO para mostrar código */
+  --font-family-heading: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --font-family-body: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
   --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --font-size-xs:  0.75rem;

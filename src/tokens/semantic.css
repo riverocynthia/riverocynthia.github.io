@@ -18,7 +18,7 @@
   --color-text-inverse: var(--white);
   --color-text-inverse-muted: var(--cyan-300);
 
-  --color-brand: var(--blue-700);
+  --color-brand: var(--blue-500);
   --color-brand-hover: var(--blue-600);
   --color-brand-subtle: var(--blue-50);
   --color-on-brand: var(--white);
@@ -36,10 +36,13 @@
   --color-danger-bg: var(--red-100);
   --color-danger-text: var(--red-700);
   --color-warning-bg: var(--amber-100);
-  --color-warning-text: var(--amber-800);
+  --color-warning-text: var(--amber-700);
 }
 
-:root[data-theme="dark"] {
+/* Modo oscuro de toda la página, o una superficie oscura puntual (.cr-on-dark)
+   dentro de una página clara: ambos usan los mismos valores. */
+:root[data-theme="dark"],
+.cr-on-dark {
   --color-bg-page: var(--blue-950);
   --color-bg-subtle: var(--blue-900);
   --color-bg-inverse: var(--blue-800);
@@ -67,10 +70,16 @@
   --color-focus-ring: var(--cyan-300);
   --color-focus-ring-on-dark: var(--cyan-300);
 
-  --color-success-bg: #14532d;
-  --color-success-text: #86efac;
-  --color-danger-bg: #7f1d1d;
-  --color-danger-text: #fca5a5;
-  --color-warning-bg: #78350f;
-  --color-warning-text: #fcd34d;
+  --color-success-bg: var(--green-900);
+  --color-success-text: var(--green-300);
+  --color-danger-bg: var(--red-900);
+  --color-danger-text: var(--red-300);
+  --color-warning-bg: var(--amber-900);
+  --color-warning-text: var(--amber-300);
+}
+
+/* El fondo de la superficie se puede reemplazar (por ejemplo, con un degradado). */
+.cr-on-dark {
+  background: var(--color-bg-page);
+  color: var(--color-text-body);
 }

@@ -22,7 +22,7 @@ function Nav() {
   }, [open])
 
   return (
-    <nav className="nav" aria-label="Principal">
+    <nav className="nav cr-on-dark" aria-label="Principal">
       <div className="container nav-inner">
         <a href="#main" className="nav-logo">Cynthia<span>.</span></a>
         <button
@@ -40,7 +40,7 @@ function Nav() {
             <li key={label}>
               <a
                 href={`#${NAV_IDS[i]}`}
-                className={label === 'Contacto' ? 'nav-cta' : ''}
+                className={label === 'Contacto' ? 'btn btn-secondary nav-cta' : ''}
                 onClick={() => setOpen(false)}
               >
                 {label}
@@ -53,47 +53,98 @@ function Nav() {
   )
 }
 
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
+
+function scrollToSection(id, duration = 900) {
+  const target = document.getElementById(id)
+  if (!target) return
+  const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0
+  const start = window.scrollY
+  const end = target.getBoundingClientRect().top + start - offset
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  const finish = () => {
+    history.pushState(null, '', `#${id}`)
+    target.focus({ preventScroll: true })
+  }
+
+  if (reduceMotion) {
+    window.scrollTo({ top: end, behavior: 'instant' })
+    finish()
+    return
+  }
+
+  let frame
+  const cancel = () => {
+    cancelAnimationFrame(frame)
+    window.removeEventListener('wheel', cancel)
+    window.removeEventListener('touchstart', cancel)
+  }
+  window.addEventListener('wheel', cancel, { passive: true })
+  window.addEventListener('touchstart', cancel, { passive: true })
+
+  const startTime = performance.now()
+  const step = (now) => {
+    const progress = Math.min((now - startTime) / duration, 1)
+    window.scrollTo({ top: start + (end - start) * easeInOutCubic(progress), behavior: 'instant' })
+    if (progress < 1) {
+      frame = requestAnimationFrame(step)
+    } else {
+      cancel()
+      finish()
+    }
+  }
+  frame = requestAnimationFrame(step)
+}
+
 function Hero() {
   return (
-    <section className="hero">
+    <section className="hero cr-on-dark">
       <div className="container">
         <div className="hero-content">
           <div className="hero-eyebrow">
-            <span className="hero-eyebrow-line" />
             <span className="hero-eyebrow-text">Product Designer · UX/UI · Accesibilidad</span>
           </div>
           <h1 className="hero-title">
             Hola, soy<br />
             <span className="highlight">Cynthia Rivero</span>
           </h1>
-          <p className="hero-role">Diseñadora UX/UI Senior &amp; Especialista en Accesibilidad Digital</p>
           <p className="hero-bio">
             Más de 8 años diseñando productos digitales centrados en las personas.
             Especializada en WCAG 2.2, design systems y la integración de IA generativa
-            al proceso de diseño.
+            y agentes al proceso de diseño.
           </p>
           <div className="hero-actions">
             <a href="#experience" className="btn btn-primary">Ver mi experiencia</a>
-            <a href="#contact" className="btn btn-outline">Contactarme</a>
           </div>
         </div>
       </div>
-      <div className="hero-scroll" aria-hidden="true">scroll</div>
+      <a
+        href="#about"
+        className="hero-scroll"
+        onClick={(e) => {
+          e.preventDefault()
+          scrollToSection('about')
+        }}
+      >
+        <span className="hero-scroll-text">scrollea para seguir leyendo</span>
+        <span className="hero-scroll-arrow" aria-hidden="true">↓</span>
+      </a>
     </section>
   )
 }
 
 function About() {
   return (
-    <section id="about" className="section about">
+    <section id="about" tabIndex={-1} className="section about">
       <div className="container">
         <h2 className="section-title">Sobre mí</h2>
-        <p className="section-subtitle">Diseño con propósito, empatía y atención al detalle</p>
+        <p className="section-subtitle">Diseño con propósito, empatía y atención al detalle.</p>
         <div className="about-grid">
           <div className="about-text">
             <p>
               Soy Diseñadora UX/UI Senior con más de 8 años de experiencia en producto digital,
-              especializada en accesibilidad (WCAG 2.2) y design systems. En Gire (Rapipago)
+              especializada en accesibilidad (WCAG 2.2) y design systems. En Gire
               diseño plataformas de pagos y servicios financieros gestionando el ciclo completo.
             </p>
             <p>
@@ -148,7 +199,7 @@ const EXPERIENCE = [
   },
   {
     current: false,
-    role: 'Diseñadora UI & Desarrolladora Web',
+    role: 'Diseñadora UI y Desarrolladora Web',
     period: 'Feb 2018 – Sep 2021',
     company: 'Contenidos Públicos S.E. — cont.ar',
     items: [
@@ -173,7 +224,7 @@ function Experience() {
     <section id="experience" className="section experience">
       <div className="container">
         <h2 className="section-title">Experiencia</h2>
-        <p className="section-subtitle">Trayectoria en diseño de producto y desarrollo front-end</p>
+        <p className="section-subtitle">Trayectoria en diseño de producto y desarrollo front-end.</p>
         <div className="timeline">
           {EXPERIENCE.map((job) => (
             <div className="timeline-item" key={job.company}>
@@ -221,11 +272,11 @@ function Portfolio() {
     <section id="portfolio" className="section portfolio">
       <div className="container">
         <h2 className="section-title">Portfolio</h2>
-        <p className="section-subtitle">Casos de estudio de producto (versión NDA)</p>
+        <p className="section-subtitle">Casos de estudio de producto (versión NDA).</p>
         <div className="case-list">
           {CASES.map((c) => (
             <article className="case-card" key={c.title}>
-              <div className="case-card-visual" aria-hidden="true">
+              <div className="case-card-visual cr-on-dark" aria-hidden="true">
                 <span className="case-card-visual-label">Caso de estudio</span>
                 <span className="case-card-visual-title">{c.title}</span>
                 <span className="case-card-visual-pages">PDF · 18 páginas</span>
@@ -302,7 +353,7 @@ function Skills() {
     <section id="skills" className="section skills">
       <div className="container">
         <h2 className="section-title">Habilidades</h2>
-        <p className="section-subtitle">Disciplinas y tecnologías que domino</p>
+        <p className="section-subtitle">Disciplinas y tecnologías que domino.</p>
         <div className="skills-grid">
           {SKILLS.map((s) => (
             <div className="skill-card" key={s.title}>
@@ -320,7 +371,7 @@ function Skills() {
 }
 
 const COURSES = [
-  { name: 'Claude 101, Introduction to agent skills, AI fluency framework, AI Capabilities & Claude Code in action', meta: '2026 · Anthropic Skilljar' },
+  { name: 'Claude 101, Introduction to agent skills, AI fluency framework, AI Capabilities and limitations, Claude Code in action', meta: '2026 · Anthropic Skilljar' },
   { name: 'AI for UI and UX Designers | Design Smarter, Not Harder', meta: '2026 · Udemy' },
   { name: 'Liderazgo 360°; Liderazgo Innovador: Neurodiversidad y Sesgos Inconscientes; Secretos de Oratoria de un ex-CEO', meta: '2025 · Udemy' },
   { name: 'Diseño para la accesibilidad (WCAG 2.2)', meta: '2023 · Udemy' },
@@ -332,7 +383,7 @@ function Education() {
     <section id="education" className="section education">
       <div className="container">
         <h2 className="section-title">Formación</h2>
-        <p className="section-subtitle">Educación y desarrollo profesional continuo</p>
+        <p className="section-subtitle">Educación y desarrollo profesional continuo.</p>
         <div className="edu-grid" style={{ marginBottom: 40 }}>
           <div className="edu-card">
             <p className="edu-card-label">Título</p>
@@ -346,7 +397,7 @@ function Education() {
           </div>
         </div>
         <h3 style={{ color: 'var(--blue-800)', fontWeight: 700, marginBottom: 20, fontSize: '1.05rem' }}>
-          Cursos &amp; certificaciones
+          Cursos y certificaciones
         </h3>
         <div className="courses-list">
           {COURSES.map((c) => (
@@ -363,10 +414,9 @@ function Education() {
 
 function Contact() {
   return (
-    <section id="contact" className="section contact">
+    <section id="contact" className="section contact cr-on-dark">
       <div className="container">
         <h2 className="section-title">Contacto</h2>
-        <p className="section-subtitle">¿Tenés un proyecto en mente? Hablemos.</p>
         <div className="contact-grid">
           <div className="contact-info">
             <div className="contact-links">
@@ -394,7 +444,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer cr-on-dark">
       <div className="container">
         <p>© {new Date().getFullYear()} Cynthia Rivero · Diseñada con ♥ en Buenos Aires</p>
       </div>
