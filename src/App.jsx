@@ -1,7 +1,9 @@
 import './App.css'
 
-const NAV_LINKS = ['Sobre mí', 'Experiencia', 'Skills', 'Educación', 'Contacto']
-const NAV_IDS   = ['about',    'experience',  'skills', 'education', 'contact']
+const SHOW_PORTFOLIO = false
+
+const NAV_LINKS = ['Sobre mí', 'Experiencia', ...(SHOW_PORTFOLIO ? ['Portfolio'] : []), 'Skills', 'Educación', 'Contacto']
+const NAV_IDS   = ['about',    'experience',  ...(SHOW_PORTFOLIO ? ['portfolio'] : []), 'skills', 'education', 'contact']
 
 function Nav() {
   return (
@@ -56,7 +58,7 @@ function About() {
   return (
     <section id="about" className="section about">
       <div className="container">
-        <h2 className="section-title">Sobre <span className="accent">mí</span></h2>
+        <h2 className="section-title">Sobre mí</h2>
         <p className="section-subtitle">Diseño con propósito, empatía y atención al detalle</p>
         <div className="about-grid">
           <div className="about-text">
@@ -141,7 +143,7 @@ function Experience() {
   return (
     <section id="experience" className="section experience">
       <div className="container">
-        <h2 className="section-title">Experi<span className="accent">encia</span></h2>
+        <h2 className="section-title">Experiencia</h2>
         <p className="section-subtitle">Trayectoria en diseño de producto y desarrollo front-end</p>
         <div className="timeline">
           {EXPERIENCE.map((job) => (
@@ -158,6 +160,74 @@ function Experience() {
                 </ul>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const CASES = [
+  {
+    title: 'Sistema de cobros presencial',
+    summary:
+      'Cómo se actualizó la plataforma de una red de cobranza presencial: de una aplicación de escritorio antigua a una plataforma web moderna, consistente y accesible.',
+    meta: [
+      ['Rol', 'Lead Product Designer'],
+      ['Período', '2024 – 2026'],
+      ['Equipo', '2 diseñadores UX/UI · 1 dev front-end'],
+    ],
+    results: [
+      '5 de 6 tareas resueltas de forma autónoma en el primer uso',
+      '~2 meses menos de cronograma gracias al design system',
+      'Funciona en web y tablet, sin equipos especiales',
+    ],
+    tags: ['UX/UI', 'Design system', 'Tokens multimarca', 'Accesibilidad', 'Testeo de usabilidad', 'React'],
+    pdf: `${import.meta.env.BASE_URL}caso-sistema-de-cobros-presencial.pdf`,
+  },
+]
+
+function Portfolio() {
+  return (
+    <section id="portfolio" className="section portfolio">
+      <div className="container">
+        <h2 className="section-title">Portfolio</h2>
+        <p className="section-subtitle">Casos de estudio de producto (versión NDA)</p>
+        <div className="case-list">
+          {CASES.map((c) => (
+            <article className="case-card" key={c.title}>
+              <div className="case-card-visual" aria-hidden="true">
+                <span className="case-card-visual-label">Caso de estudio</span>
+                <span className="case-card-visual-title">{c.title}</span>
+                <span className="case-card-visual-pages">PDF · 18 páginas</span>
+              </div>
+              <div className="case-card-body">
+                <h3 className="case-card-title">{c.title}</h3>
+                <p className="case-card-summary">{c.summary}</p>
+                <dl className="case-meta">
+                  {c.meta.map(([k, v]) => (
+                    <div key={k}>
+                      <dt>{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <ul className="timeline-list case-results">
+                  {c.results.map((r) => <li key={r}>{r}</li>)}
+                </ul>
+                <div className="skill-tags case-tags">
+                  {c.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+                </div>
+                <div className="case-actions">
+                  <a href={c.pdf} target="_blank" rel="noreferrer" className="btn btn-primary">
+                    Ver caso completo
+                  </a>
+                  <a href={c.pdf} download className="btn btn-secondary">
+                    Descargar PDF
+                  </a>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -202,7 +272,7 @@ function Skills() {
   return (
     <section id="skills" className="section skills">
       <div className="container">
-        <h2 className="section-title">Habili<span className="accent">dades</span></h2>
+        <h2 className="section-title">Habilidades</h2>
         <p className="section-subtitle">Disciplinas y tecnologías que domino</p>
         <div className="skills-grid">
           {SKILLS.map((s) => (
@@ -232,7 +302,7 @@ function Education() {
   return (
     <section id="education" className="section education">
       <div className="container">
-        <h2 className="section-title">Forma<span className="accent">ción</span></h2>
+        <h2 className="section-title">Formación</h2>
         <p className="section-subtitle">Educación y desarrollo profesional continuo</p>
         <div className="edu-grid" style={{ marginBottom: 40 }}>
           <div className="edu-card">
@@ -246,7 +316,7 @@ function Education() {
             <p className="edu-card-sub">Nivel intermedio-avanzado</p>
           </div>
         </div>
-        <h3 style={{ color: 'var(--blue-700)', fontWeight: 700, marginBottom: 20, fontSize: '1.05rem' }}>
+        <h3 style={{ color: 'var(--blue-800)', fontWeight: 700, marginBottom: 20, fontSize: '1.05rem' }}>
           Cursos &amp; certificaciones
         </h3>
         <div className="courses-list">
@@ -266,15 +336,10 @@ function Contact() {
   return (
     <section id="contact" className="section contact">
       <div className="container">
-        <h2 className="section-title">Contac<span className="accent">to</span></h2>
+        <h2 className="section-title">Contacto</h2>
         <p className="section-subtitle">¿Tenés un proyecto en mente? Hablemos.</p>
         <div className="contact-grid">
           <div className="contact-info">
-            <p>
-              Estoy disponible para proyectos freelance, consultoría en accesibilidad
-              y oportunidades de colaboración. Me interesa trabajar en productos
-              digitales con impacto real y equipos que valoren el diseño inclusivo.
-            </p>
             <div className="contact-links">
               <a href="mailto:cynthiarivero@proton.me" className="contact-link">
                 <span className="contact-link-icon">✉️</span>
@@ -288,22 +353,7 @@ function Contact() {
                 <span className="contact-link-icon">🐙</span>
                 github.com/riverocynthia
               </a>
-              <a href="tel:+5491164777501" className="contact-link">
-                <span className="contact-link-icon">📞</span>
-                +54 9 11 6477-7501
-              </a>
             </div>
-          </div>
-          <div className="contact-availability">
-            <p className="availability-title">
-              <span className="availability-dot" />
-              Disponible para nuevos proyectos
-            </p>
-            <p className="availability-text">
-              Acepto proyectos de diseño UX/UI, auditorías de accesibilidad
-              y consultoría en design systems. Buenos Aires, Argentina —
-              también trabajo de forma remota.
-            </p>
           </div>
         </div>
       </div>
@@ -328,6 +378,7 @@ export default function App() {
       <Hero />
       <About />
       <Experience />
+      {SHOW_PORTFOLIO && <Portfolio />}
       <Skills />
       <Education />
       <Contact />
