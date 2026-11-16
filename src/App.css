@@ -623,6 +623,18 @@
   background: rgba(56,189,248,0.05);
 }
 
+.contact-link:hover,
+.contact-link:focus-visible {
+  text-decoration: none;
+}
+
+.contact-link:hover .contact-link-text,
+.contact-link:focus-visible .contact-link-text {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 .contact-link-icon {
   font-size: 1.1rem;
   width: 20px;

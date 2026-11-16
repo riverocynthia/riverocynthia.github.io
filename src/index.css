@@ -27,6 +27,21 @@ a {
   text-decoration: none;
 }
 
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.btn:hover,
+.btn:focus-visible,
+.nav-cta:hover,
+.nav-cta:focus-visible,
+.skip-link:focus-visible {
+  text-decoration: none;
+}
+
 img {
   max-width: 100%;
   display: block;

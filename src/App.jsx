@@ -372,16 +372,16 @@ function Contact() {
             <div className="contact-links">
               <a href="mailto:cynthiarivero@proton.me" className="contact-link">
                 <span className="contact-link-icon" aria-hidden="true">✉️</span>
-                cynthiarivero@proton.me
+                <span className="contact-link-text">cynthiarivero@proton.me</span>
               </a>
               <a href="https://linkedin.com/in/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
                 <span className="contact-link-icon" aria-hidden="true">💼</span>
-                linkedin.com/in/riverocynthia
+                <span className="contact-link-text">linkedin.com/in/riverocynthia</span>
                 <span className="sr-only"> (se abre en una pestaña nueva)</span>
               </a>
               <a href="https://github.com/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
                 <span className="contact-link-icon" aria-hidden="true">🐙</span>
-                github.com/riverocynthia
+                <span className="contact-link-text">github.com/riverocynthia</span>
                 <span className="sr-only"> (se abre en una pestaña nueva)</span>
               </a>
             </div>
