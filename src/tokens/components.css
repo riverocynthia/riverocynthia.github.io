@@ -1,0 +1,21 @@
+/* CAPA 3 · COMPONENTES
+   Tokens por componente, apuntando a la capa semántica. */
+:root {
+  --button-radius: var(--radius-md);
+  --button-padding-y: var(--space-3);
+  --button-padding-x: var(--space-6);
+  --button-font-size: var(--font-size-md);
+  --button-font-weight: var(--font-weight-semibold);
+
+  --tag-radius: var(--radius-pill);
+  --tag-padding-y: var(--space-1);
+  --tag-padding-x: var(--space-3);
+  --tag-font-size: var(--font-size-xs);
+
+  --card-radius: var(--radius-lg);
+  --card-padding: var(--space-6);
+  --card-shadow: var(--shadow-sm);
+
+  --focus-ring-width: var(--stroke-medium);
+  --focus-ring-offset: 2px;
+}

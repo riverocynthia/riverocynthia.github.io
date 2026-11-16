@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const SHOW_PORTFOLIO = false
@@ -6,14 +7,42 @@ const NAV_LINKS = ['Sobre mí', 'Experiencia', ...(SHOW_PORTFOLIO ? ['Portfolio'
 const NAV_IDS   = ['about',    'experience',  ...(SHOW_PORTFOLIO ? ['portfolio'] : []), 'skills', 'education', 'contact']
 
 function Nav() {
+  const [open, setOpen] = useState(false)
+  const toggleRef = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      toggleRef.current?.focus()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
-    <nav className="nav">
+    <nav className="nav" aria-label="Principal">
       <div className="container nav-inner">
-        <span className="nav-logo">Cynthia<span>.</span></span>
-        <ul className="nav-links">
+        <a href="#main" className="nav-logo">Cynthia<span>.</span></a>
+        <button
+          type="button"
+          ref={toggleRef}
+          className="nav-toggle"
+          aria-expanded={open}
+          aria-controls="nav-menu"
+          onClick={() => setOpen(!open)}
+        >
+          Menú
+        </button>
+        <ul id="nav-menu" className={`nav-links${open ? ' is-open' : ''}`}>
           {NAV_LINKS.map((label, i) => (
             <li key={label}>
-              <a href={`#${NAV_IDS[i]}`} className={label === 'Contacto' ? 'nav-cta' : ''}>
+              <a
+                href={`#${NAV_IDS[i]}`}
+                className={label === 'Contacto' ? 'nav-cta' : ''}
+                onClick={() => setOpen(false)}
+              >
                 {label}
               </a>
             </li>
@@ -49,7 +78,7 @@ function Hero() {
           </div>
         </div>
       </div>
-      <div className="hero-scroll">scroll</div>
+      <div className="hero-scroll" aria-hidden="true">scroll</div>
     </section>
   )
 }
@@ -151,7 +180,7 @@ function Experience() {
               <div className={`timeline-dot${job.current ? ' current' : ''}`} />
               <div className="timeline-card">
                 <div className="timeline-header">
-                  <span className="timeline-role">{job.role}</span>
+                  <h3 className="timeline-role">{job.role}</h3>
                   <span className="timeline-period">{job.period}</span>
                 </div>
                 <p className="timeline-company">{job.company}</p>
@@ -277,8 +306,8 @@ function Skills() {
         <div className="skills-grid">
           {SKILLS.map((s) => (
             <div className="skill-card" key={s.title}>
-              <div className="skill-card-icon">{s.icon}</div>
-              <div className="skill-card-title">{s.title}</div>
+              <div className="skill-card-icon" aria-hidden="true">{s.icon}</div>
+              <h3 className="skill-card-title">{s.title}</h3>
               <div className="skill-tags">
                 {s.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
               </div>
@@ -342,16 +371,18 @@ function Contact() {
           <div className="contact-info">
             <div className="contact-links">
               <a href="mailto:cynthiarivero@proton.me" className="contact-link">
-                <span className="contact-link-icon">✉️</span>
+                <span className="contact-link-icon" aria-hidden="true">✉️</span>
                 cynthiarivero@proton.me
               </a>
               <a href="https://linkedin.com/in/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
-                <span className="contact-link-icon">💼</span>
+                <span className="contact-link-icon" aria-hidden="true">💼</span>
                 linkedin.com/in/riverocynthia
+                <span className="sr-only"> (se abre en una pestaña nueva)</span>
               </a>
               <a href="https://github.com/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
-                <span className="contact-link-icon">🐙</span>
+                <span className="contact-link-icon" aria-hidden="true">🐙</span>
                 github.com/riverocynthia
+                <span className="sr-only"> (se abre en una pestaña nueva)</span>
               </a>
             </div>
           </div>
@@ -374,14 +405,17 @@ function Footer() {
 export default function App() {
   return (
     <>
+      <a className="skip-link" href="#main">Saltar al contenido</a>
       <Nav />
-      <Hero />
-      <About />
-      <Experience />
-      {SHOW_PORTFOLIO && <Portfolio />}
-      <Skills />
-      <Education />
-      <Contact />
+      <main id="main" tabIndex={-1}>
+        <Hero />
+        <About />
+        <Experience />
+        {SHOW_PORTFOLIO && <Portfolio />}
+        <Skills />
+        <Education />
+        <Contact />
+      </main>
       <Footer />
     </>
   )

@@ -1,0 +1,76 @@
+/* CAPA 2 · SEMÁNTICOS
+   Describen el USO, no el valor. Cada modo (light / dark) reasigna los
+   mismos nombres: cambiar de modo no requiere tocar ningún componente. */
+
+:root,
+:root[data-theme="light"] {
+  --color-bg-page: var(--white);
+  --color-bg-subtle: var(--gray-100);
+  --color-bg-inverse: var(--blue-900);
+  --color-surface: var(--white);
+  --color-surface-muted: var(--gray-100);
+  --color-border: var(--gray-200);
+  --color-border-strong: var(--gray-400);
+
+  --color-text-primary: var(--blue-800);
+  --color-text-body: var(--gray-800);
+  --color-text-muted: var(--gray-600);
+  --color-text-inverse: var(--white);
+  --color-text-inverse-muted: var(--cyan-300);
+
+  --color-brand: var(--blue-700);
+  --color-brand-hover: var(--blue-600);
+  --color-brand-subtle: var(--blue-50);
+  --color-on-brand: var(--white);
+
+  --color-accent-solid: var(--orange-500);
+  --color-accent-solid-hover: var(--orange-400);
+  --color-on-accent-solid: var(--blue-950);
+  --color-accent-text: var(--orange-700);
+
+  --color-focus-ring: var(--blue-500);
+  --color-focus-ring-on-dark: var(--cyan-300);
+
+  --color-success-bg: var(--green-100);
+  --color-success-text: var(--green-700);
+  --color-danger-bg: var(--red-100);
+  --color-danger-text: var(--red-700);
+  --color-warning-bg: var(--amber-100);
+  --color-warning-text: var(--amber-800);
+}
+
+:root[data-theme="dark"] {
+  --color-bg-page: var(--blue-950);
+  --color-bg-subtle: var(--blue-900);
+  --color-bg-inverse: var(--blue-800);
+  --color-surface: var(--blue-900);
+  --color-surface-muted: var(--blue-800);
+  --color-border: var(--blue-700);
+  --color-border-strong: var(--gray-500);
+
+  --color-text-primary: var(--gray-50);
+  --color-text-body: var(--gray-300);
+  --color-text-muted: var(--gray-400);
+  --color-text-inverse: var(--white);
+  --color-text-inverse-muted: var(--cyan-300);
+
+  --color-brand: var(--cyan-400);
+  --color-brand-hover: var(--cyan-300);
+  --color-brand-subtle: var(--blue-800);
+  --color-on-brand: var(--blue-950);
+
+  --color-accent-solid: var(--orange-500);
+  --color-accent-solid-hover: var(--orange-400);
+  --color-on-accent-solid: var(--blue-950);
+  --color-accent-text: var(--orange-400);
+
+  --color-focus-ring: var(--cyan-300);
+  --color-focus-ring-on-dark: var(--cyan-300);
+
+  --color-success-bg: #14532d;
+  --color-success-text: #86efac;
+  --color-danger-bg: #7f1d1d;
+  --color-danger-text: #fca5a5;
+  --color-warning-bg: #78350f;
+  --color-warning-text: #fcd34d;
+}
