@@ -448,26 +448,6 @@ export default function DesignSystemPage() {
                   </a>
                 </div>
               </article>
-
-              <article className="case-block">
-                <h3 className="case-block-title">Línea de tiempo</h3>
-                <div className="dsp-stack">
-                  <div className="cr-timeline-item cr-timeline-item--current">
-                    <span className="cr-timeline-item__dot" />
-                    <div className="cr-card">
-                      <div className="cr-card__title">Item actual</div>
-                      <div className="cr-card__text">Oct 2021 – Hoy</div>
-                    </div>
-                  </div>
-                  <div className="cr-timeline-item">
-                    <span className="cr-timeline-item__dot" />
-                    <div className="cr-card">
-                      <div className="cr-card__title">Item anterior</div>
-                      <div className="cr-card__text">Feb 2018 – Sep 2021</div>
-                    </div>
-                  </div>
-                </div>
-              </article>
             </div>
 
             <h3 className="case-subhead dsp-subhead">Un sistema, dos superficies</h3>

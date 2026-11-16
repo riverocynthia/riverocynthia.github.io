@@ -64,7 +64,7 @@ function Hero() {
             y agentes al proceso de diseño.
           </p>
           <div className="hero-actions">
-            <a href="#portfolio" className="btn btn-primary">Ver mi trabajo</a>
+            <a href="#portfolio" className="btn btn-primary">Ver mi portfolio</a>
           </div>
         </div>
       </div>
@@ -374,8 +374,8 @@ function Education() {
   return (
     <section id="education" className="section education">
       <div className="container">
-        <h2 className="section-title">Formación</h2>
-        <p className="section-subtitle">Educación y desarrollo profesional continuo.</p>
+        <h2 className="section-title">Educación</h2>
+        <p className="section-subtitle">Formación y desarrollo profesional continuo.</p>
         <div className="edu-grid">
           <div className="edu-card">
             <p className="edu-card-label">Título</p>

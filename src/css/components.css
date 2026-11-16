@@ -331,21 +331,3 @@
   font-size: var(--font-size-md);
   color: var(--color-text-muted);
 }
-
-.cr-timeline-item {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: var(--space-4);
-}
-.cr-timeline-item__dot {
-  width: 24px;
-  height: 24px;
-  margin-top: 4px;
-  border-radius: 50%;
-  border: var(--stroke-thick) solid var(--color-brand);
-  background: var(--color-bg-page);
-}
-.cr-timeline-item--current .cr-timeline-item__dot {
-  background: var(--color-accent-solid);
-  border-color: var(--orange-300);
-}
