@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
-const SHOW_PORTFOLIO = false
+const SHOW_PORTFOLIO = true
 
-const NAV_LINKS = ['Sobre mí', 'Experiencia', ...(SHOW_PORTFOLIO ? ['Portfolio'] : []), 'Skills', 'Educación', 'Contacto']
-const NAV_IDS   = ['about',    'experience',  ...(SHOW_PORTFOLIO ? ['portfolio'] : []), 'skills', 'education', 'contact']
+const NAV_LINKS = ['Sobre mí', ...(SHOW_PORTFOLIO ? ['Portfolio'] : []), 'Experiencia', 'Skills', 'Educación', 'Contacto']
+const NAV_IDS   = ['about',    ...(SHOW_PORTFOLIO ? ['portfolio'] : []), 'experience',  'skills', 'education', 'contact']
 
 function Nav() {
   const [open, setOpen] = useState(false)
@@ -106,16 +106,16 @@ function Hero() {
             <span className="hero-eyebrow-text">Product Designer · UX/UI · Accesibilidad</span>
           </div>
           <h1 className="hero-title">
-            Hola, soy<br />
-            <span className="highlight">Cynthia Rivero</span>
+            Diseño interfaces accesibles{' '}<br />
+            <span className="highlight">y las llevo hasta el código.</span>
           </h1>
           <p className="hero-bio">
-            Más de 8 años diseñando productos digitales centrados en las personas.
+            Soy Cynthia Rivero. Más de 8 años diseñando productos digitales centrados en las personas.
             Especializada en WCAG 2.2, design systems y la integración de IA generativa
             y agentes al proceso de diseño.
           </p>
           <div className="hero-actions">
-            <a href="#experience" className="btn btn-primary">Ver mi experiencia</a>
+            <a href="#portfolio" className="btn btn-primary">Ver mi trabajo</a>
           </div>
         </div>
       </div>
@@ -143,15 +143,13 @@ function About() {
         <div className="about-grid">
           <div className="about-text">
             <p>
-              Soy Diseñadora UX/UI Senior con más de 8 años de experiencia en producto digital,
-              especializada en accesibilidad (WCAG 2.2) y design systems. En Gire
-              diseño plataformas de pagos y servicios financieros gestionando el ciclo completo.
+              Mis conocimientos cruzan tres áreas que suelen estar separadas: diseño de producto,
+              accesibilidad y código. Estos me permiten diseñar un flujo, comprobar que funciona
+              para todas las personas y dejarlo listo para que desarrollo lo construya.
             </p>
             <p>
               Integro IA generativa y agentes en mi proceso para acelerar la exploración,
-              la validación y la documentación. Mi experiencia como desarrolladora front-end
-              (React, Vue.js) me permite colaborar de cerca con los equipos técnicos y
-              entregar especificaciones precisas en handoff.
+              la validación de datos y la documentación.
             </p>
             <p>
               Creo que el buen diseño es invisible: fluye, es inclusivo y hace que
@@ -247,9 +245,13 @@ function Experience() {
   )
 }
 
+const CASE_PDF = `${import.meta.env.BASE_URL}caso-sistema-de-cobros-presencial.pdf`
+
 const CASES = [
   {
+    kind: 'Caso de estudio · versión NDA',
     title: 'Sistema de cobros presencial',
+    visualNote: 'PDF · 18 páginas',
     summary:
       'Cómo se actualizó la plataforma de una red de cobranza presencial: de una aplicación de escritorio antigua a una plataforma web moderna, consistente y accesible.',
     meta: [
@@ -260,10 +262,37 @@ const CASES = [
     results: [
       '5 de 6 tareas resueltas de forma autónoma en el primer uso',
       '~2 meses menos de cronograma gracias al design system',
+      'Exploré 4 versiones del inicio y descarté 3 validándolas con el equipo de soporte a cajeros',
       'Funciona en web y tablet, sin equipos especiales',
     ],
     tags: ['UX/UI', 'Design system', 'Tokens multimarca', 'Accesibilidad', 'Testeo de usabilidad', 'React'],
-    pdf: `${import.meta.env.BASE_URL}caso-sistema-de-cobros-presencial.pdf`,
+    actions: [
+      { label: 'Ver caso completo', href: CASE_PDF, primary: true, external: true },
+      { label: 'Descargar PDF', href: CASE_PDF, download: true },
+    ],
+  },
+  {
+    kind: 'Proyecto propio',
+    title: 'Design system personal',
+    visualNote: 'v1.0.0 · Documentación en vivo',
+    swatches: ['blue-500', 'cyan-400', 'orange-500', 'gray-500'],
+    summary:
+      'El sistema de diseño que usa este mismo sitio: tokens en tres capas con modo claro y oscuro, componentes accesibles y una documentación que mide el contraste en vivo.',
+    meta: [
+      ['Rol', 'Diseño y desarrollo'],
+      ['Año', '2026'],
+      ['Stack', 'React · Vite · CSS'],
+    ],
+    results: [
+      'Tokens en capas (primitivos, semánticos y de componente), con modo claro y oscuro',
+      '18 pares de color medidos en vivo contra WCAG 2.2 AA',
+      'Componentes con teclado, foco visible y estados: botón, selectores, tags y más',
+    ],
+    tags: ['Design system', 'Tokens', 'Accesibilidad', 'WCAG 2.2', 'React', 'CSS'],
+    actions: [
+      { label: 'Ver design system', href: 'https://riverocynthia.github.io/design-system/', primary: true, external: true },
+      { label: 'Ver código', href: 'https://github.com/riverocynthia/design-system', external: true },
+    ],
   },
 ]
 
@@ -272,14 +301,21 @@ function Portfolio() {
     <section id="portfolio" className="section portfolio">
       <div className="container">
         <h2 className="section-title">Portfolio</h2>
-        <p className="section-subtitle">Casos de estudio de producto (versión NDA).</p>
+        <p className="section-subtitle">Casos de estudio y proyectos propios.</p>
         <div className="case-list">
           {CASES.map((c) => (
             <article className="case-card" key={c.title}>
               <div className="case-card-visual cr-on-dark" aria-hidden="true">
-                <span className="case-card-visual-label">Caso de estudio</span>
+                <span className="case-card-visual-label">{c.kind}</span>
                 <span className="case-card-visual-title">{c.title}</span>
-                <span className="case-card-visual-pages">PDF · 18 páginas</span>
+                {c.swatches && (
+                  <span className="case-swatches">
+                    {c.swatches.map((v) => (
+                      <span key={v} className="case-swatch" style={{ background: `var(--${v})` }} />
+                    ))}
+                  </span>
+                )}
+                <span className="case-card-visual-pages">{c.visualNote}</span>
               </div>
               <div className="case-card-body">
                 <h3 className="case-card-title">{c.title}</h3>
@@ -299,12 +335,18 @@ function Portfolio() {
                   {c.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
                 </div>
                 <div className="case-actions">
-                  <a href={c.pdf} target="_blank" rel="noreferrer" className="btn btn-primary">
-                    Ver caso completo
-                  </a>
-                  <a href={c.pdf} download className="btn btn-secondary">
-                    Descargar PDF
-                  </a>
+                  {c.actions.map((a) => (
+                    <a
+                      key={a.label}
+                      href={a.href}
+                      className={`btn ${a.primary ? 'btn-primary' : 'btn-secondary'}`}
+                      {...(a.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                      {...(a.download ? { download: true } : {})}
+                    >
+                      {a.label}
+                      {a.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+                    </a>
+                  ))}
                 </div>
               </div>
             </article>
@@ -384,7 +426,7 @@ function Education() {
       <div className="container">
         <h2 className="section-title">Formación</h2>
         <p className="section-subtitle">Educación y desarrollo profesional continuo.</p>
-        <div className="edu-grid" style={{ marginBottom: 40 }}>
+        <div className="edu-grid">
           <div className="edu-card">
             <p className="edu-card-label">Título</p>
             <p className="edu-card-title">Diseño Multimedial</p>
@@ -396,7 +438,7 @@ function Education() {
             <p className="edu-card-sub">Nivel intermedio-avanzado</p>
           </div>
         </div>
-        <h3 style={{ color: 'var(--blue-800)', fontWeight: 700, marginBottom: 20, fontSize: '1.05rem' }}>
+        <h3 className="edu-subtitle">
           Cursos y certificaciones
         </h3>
         <div className="courses-list">
@@ -442,11 +484,56 @@ function Contact() {
   )
 }
 
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg>
+  )
+}
+
+function ThemeSwitch({ checked, onChange, label }) {
+  return (
+    <button type="button" role="switch" aria-checked={checked} aria-label={label} className="cr-switch" onClick={onChange}>
+      <span className="cr-switch__icon cr-switch__icon--start"><SunIcon /></span>
+      <span className="cr-switch__icon cr-switch__icon--end"><MoonIcon /></span>
+      <span className="cr-switch__thumb">{checked ? <MoonIcon /> : <SunIcon />}</span>
+    </button>
+  )
+}
+
 function Footer() {
+  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
+
+  function toggleTheme() {
+    const next = dark ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    setDark(!dark)
+    try {
+      localStorage.setItem('theme', next)
+    } catch (e) {
+      /* sin almacenamiento: el tema vale solo para esta visita */
+    }
+  }
+
   return (
     <footer className="footer cr-on-dark">
       <div className="container">
         <p>© {new Date().getFullYear()} Cynthia Rivero · Diseñada con ♥ en Buenos Aires</p>
+        <label className="footer-theme">
+          <span aria-hidden="true">Probá el sitio en modo oscuro</span>
+          <ThemeSwitch checked={dark} onChange={toggleTheme} label="Probá el sitio en modo oscuro" />
+        </label>
+        <p>Tokens semánticos, un solo CSS.</p>
       </div>
     </footer>
   )
@@ -460,8 +547,8 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         <Hero />
         <About />
-        <Experience />
         {SHOW_PORTFOLIO && <Portfolio />}
+        <Experience />
         <Skills />
         <Education />
         <Contact />

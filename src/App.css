@@ -110,7 +110,7 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 700px;
+  max-width: 980px;
 }
 
 .hero-eyebrow {
@@ -249,7 +249,7 @@
 
 /* Experience */
 .experience {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-page);
 }
 
 .timeline {
@@ -355,7 +355,7 @@
 
 /* Portfolio */
 .portfolio {
-  background: var(--color-bg-page);
+  background: var(--color-bg-subtle);
 }
 
 .case-list {
@@ -398,6 +398,18 @@
   font-weight: var(--font-weight-extrabold);
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+.case-swatches {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.case-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: var(--stroke-medium) solid color-mix(in srgb, var(--white) 30%, transparent);
 }
 
 .case-card-visual-pages {
@@ -459,7 +471,7 @@
 
 /* Skills */
 .skills {
-  background: var(--color-bg-page);
+  background: var(--color-bg-subtle);
 }
 
 .skills-grid {
@@ -469,7 +481,7 @@
 }
 
 .skill-card {
-  background: var(--color-surface-muted);
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   border: var(--stroke-thin) solid var(--color-border);
@@ -500,13 +512,23 @@
 
 /* Education */
 .education {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-page);
 }
 
 .edu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
+}
+
+.edu-grid {
+  margin-bottom: var(--space-10);
+}
+
+.edu-subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-5);
 }
 
 .edu-card {
@@ -623,6 +645,18 @@
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   border-top: var(--stroke-thin) solid var(--color-border);
+}
+
+.footer p + p {
+  margin-top: var(--space-1);
+}
+
+.footer-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+  cursor: pointer;
 }
 
 /* Responsive */

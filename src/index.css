@@ -9,6 +9,10 @@ html {
   scroll-padding-top: 5rem;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 body {
   font-family: var(--font-family-body);
   font-size: var(--font-size-md);
