@@ -695,6 +695,27 @@
   }
   .nav-cta { margin-top: var(--space-2); justify-content: center; }
   .hero-title { font-size: var(--font-size-4xl); }
+  /* El link de scroll entra en el flujo: nunca se superpone con el contenido */
+  .hero {
+    min-height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero > .container {
+    width: 100%;
+    padding-block: var(--space-6) var(--space-4);
+  }
+  .hero-eyebrow { margin-bottom: var(--space-3); }
+  .hero-bio {
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+  .hero-scroll {
+    position: static;
+    transform: none;
+    margin-bottom: var(--space-3);
+  }
   .about-grid { grid-template-columns: 1fr; gap: var(--space-8); }
   .about-highlights { margin-top: var(--space-8); }
   .case-card { grid-template-columns: 1fr; }
