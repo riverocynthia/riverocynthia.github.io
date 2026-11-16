@@ -93,7 +93,6 @@ img {
 
 .skip-link:focus {
   top: var(--space-4);
-  outline-color: var(--color-focus-ring-on-dark);
 }
 
 main:focus,

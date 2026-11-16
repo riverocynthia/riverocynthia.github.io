@@ -1,57 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
-
-const SHOW_PORTFOLIO = true
-
-const NAV_LINKS = ['Sobre mí', ...(SHOW_PORTFOLIO ? ['Portfolio'] : []), 'Experiencia', 'Skills', 'Educación', 'Contacto']
-const NAV_IDS   = ['about',    ...(SHOW_PORTFOLIO ? ['portfolio'] : []), 'experience',  'skills', 'education', 'contact']
-
-function Nav() {
-  const [open, setOpen] = useState(false)
-  const toggleRef = useRef(null)
-
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e) => {
-      if (e.key !== 'Escape') return
-      setOpen(false)
-      toggleRef.current?.focus()
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [open])
-
-  return (
-    <nav className="nav cr-on-dark" aria-label="Principal">
-      <div className="container nav-inner">
-        <a href="#main" className="nav-logo">Cynthia<span>.</span></a>
-        <button
-          type="button"
-          ref={toggleRef}
-          className="nav-toggle"
-          aria-expanded={open}
-          aria-controls="nav-menu"
-          onClick={() => setOpen(!open)}
-        >
-          Menú
-        </button>
-        <ul id="nav-menu" className={`nav-links${open ? ' is-open' : ''}`}>
-          {NAV_LINKS.map((label, i) => (
-            <li key={label}>
-              <a
-                href={`#${NAV_IDS[i]}`}
-                className={label === 'Contacto' ? 'btn btn-secondary nav-cta' : ''}
-                onClick={() => setOpen(false)}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
-  )
-}
+import { Footer, Nav, SkipLink } from './components/Layout.jsx'
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 
@@ -99,7 +48,7 @@ function scrollToSection(id, duration = 900) {
 
 function Hero() {
   return (
-    <section className="hero cr-on-dark">
+    <section className="hero">
       <div className="container">
         <div className="hero-content">
           <div className="hero-eyebrow">
@@ -267,7 +216,7 @@ const CASES = [
     ],
     tags: ['UX/UI', 'Design system', 'Tokens multimarca', 'Accesibilidad', 'Testeo de usabilidad', 'React'],
     actions: [
-      { label: 'Ver caso completo', href: CASE_PDF, primary: true, external: true },
+      { label: 'Ver caso', href: `${import.meta.env.BASE_URL}casos/cobros-presencial/`, primary: true },
       { label: 'Descargar PDF', href: CASE_PDF, download: true },
     ],
   },
@@ -290,7 +239,8 @@ const CASES = [
     ],
     tags: ['Design system', 'Tokens', 'Accesibilidad', 'WCAG 2.2', 'React', 'CSS'],
     actions: [
-      { label: 'Ver design system', href: 'https://riverocynthia.github.io/design-system/', primary: true, external: true },
+      { label: 'Ver proyecto', href: `${import.meta.env.BASE_URL}casos/design-system/`, primary: true },
+      { label: 'Ver documentación', href: 'https://riverocynthia.github.io/design-system/', external: true },
       { label: 'Ver código', href: 'https://github.com/riverocynthia/design-system', external: true },
     ],
   },
@@ -305,7 +255,7 @@ function Portfolio() {
         <div className="case-list">
           {CASES.map((c) => (
             <article className="case-card" key={c.title}>
-              <div className="case-card-visual cr-on-dark" aria-hidden="true">
+              <div className="case-card-visual" aria-hidden="true">
                 <span className="case-card-visual-label">{c.kind}</span>
                 <span className="case-card-visual-title">{c.title}</span>
                 {c.swatches && (
@@ -456,7 +406,7 @@ function Education() {
 
 function Contact() {
   return (
-    <section id="contact" className="section contact cr-on-dark">
+    <section id="contact" className="section contact">
       <div className="container">
         <h2 className="section-title">Contacto</h2>
         <div className="contact-grid">
@@ -484,70 +434,29 @@ function Contact() {
   )
 }
 
-function SunIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-    </svg>
-  )
-}
-
-function MoonIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-    </svg>
-  )
-}
-
-function ThemeSwitch({ checked, onChange, label }) {
-  return (
-    <button type="button" role="switch" aria-checked={checked} aria-label={label} className="cr-switch" onClick={onChange}>
-      <span className="cr-switch__icon cr-switch__icon--start"><SunIcon /></span>
-      <span className="cr-switch__icon cr-switch__icon--end"><MoonIcon /></span>
-      <span className="cr-switch__thumb">{checked ? <MoonIcon /> : <SunIcon />}</span>
-    </button>
-  )
-}
-
-function Footer() {
-  const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
-
-  function toggleTheme() {
-    const next = dark ? 'light' : 'dark'
-    document.documentElement.dataset.theme = next
-    setDark(!dark)
-    try {
-      localStorage.setItem('theme', next)
-    } catch (e) {
-      /* sin almacenamiento: el tema vale solo para esta visita */
-    }
-  }
-
-  return (
-    <footer className="footer cr-on-dark">
-      <div className="container">
-        <p>© {new Date().getFullYear()} Cynthia Rivero · Diseñada con ♥ en Buenos Aires</p>
-        <label className="footer-theme">
-          <span aria-hidden="true">Probá el sitio en modo oscuro</span>
-          <ThemeSwitch checked={dark} onChange={toggleTheme} label="Probá el sitio en modo oscuro" />
-        </label>
-        <p>Tokens semánticos, un solo CSS.</p>
-      </div>
-    </footer>
-  )
+/* La página se arma con React después de cargar: el navegador no llega a saltar al ancla de la URL
+   (por ejemplo al volver de un caso con /#portfolio), así que se hace acá una vez dibujada. */
+function useScrollToHash() {
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1))
+    if (!id) return
+    const go = () => document.getElementById(id)?.scrollIntoView({ behavior: 'instant' })
+    go()
+    document.fonts?.ready.then(go)
+  }, [])
 }
 
 export default function App() {
+  useScrollToHash()
+
   return (
     <>
-      <a className="skip-link" href="#main">Saltar al contenido</a>
+      <SkipLink />
       <Nav />
       <main id="main" tabIndex={-1}>
         <Hero />
         <About />
-        {SHOW_PORTFOLIO && <Portfolio />}
+        <Portfolio />
         <Experience />
         <Skills />
         <Education />
