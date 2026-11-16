@@ -96,7 +96,7 @@
 /* Hero */
 .hero {
   min-height: 100vh;
-  background: var(--color-bg-page);
+  background: var(--gray-50);
   display: flex;
   align-items: center;
   padding-top: 64px;
@@ -129,6 +129,10 @@
 .hero::before,
 .hero::after {
   display: none;
+}
+
+:root[data-theme="dark"] .hero {
+  background: var(--color-bg-page);
 }
 
 :root[data-theme="dark"] .hero::before,

@@ -8,7 +8,7 @@ const REPO = 'https://github.com/riverocynthia/design-system'
 const META = [
   ['Rol', 'Diseño y desarrollo'],
   ['Año', '2026'],
-  ['Versión', '1.0.0'],
+  ['Versión', '1.1.0'],
   ['Stack', 'React · Vite · CSS'],
 ]
 

@@ -223,7 +223,7 @@ const CASES = [
   {
     kind: 'Proyecto propio',
     title: 'Design system personal',
-    visualNote: 'v1.0.0 · Documentación en vivo',
+    visualNote: 'v1.1.0 · Documentación en vivo',
     swatches: ['blue-500', 'cyan-400', 'orange-500', 'gray-500'],
     summary:
       'El sistema de diseño que usa este mismo sitio: tokens en tres capas con modo claro y oscuro, componentes accesibles y una documentación que mide el contraste en vivo.',
