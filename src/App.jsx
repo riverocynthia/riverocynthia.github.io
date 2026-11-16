@@ -108,19 +108,19 @@ function About() {
           <div className="about-highlights">
             <div className="about-stat">
               <span className="about-stat-num">8+</span>
-              <span className="about-stat-label">años de experiencia en diseño de producto digital</span>
+              <span className="about-stat-label">años de experiencia en diseño de producto digital.</span>
             </div>
             <div className="about-stat">
               <span className="about-stat-num">60%</span>
-              <span className="about-stat-label">reducción en tiempo de diseño con design systems propios</span>
+              <span className="about-stat-label">reducción en tiempo de diseño con design systems propios.</span>
             </div>
             <div className="about-stat">
               <span className="about-stat-num">90–100%</span>
-              <span className="about-stat-label">score de accesibilidad en sitios institucionales (Lighthouse / WCAG 2.2 AA)</span>
+              <span className="about-stat-label">score de accesibilidad en sitios institucionales (Lighthouse / WCAG 2.2 AA).</span>
             </div>
             <div className="about-stat">
-              <span className="about-stat-num">3</span>
-              <span className="about-stat-label">design systems creados y mantenidos (Aura, Rapipago, Gire)</span>
+              <span className="about-stat-num">4</span>
+              <span className="about-stat-label">design systems creados y mantenidos (entre ellos Gire y Rapipago).</span>
             </div>
           </div>
         </div>
@@ -134,10 +134,10 @@ const EXPERIENCE = [
     current: true,
     role: 'Sr. Diseñadora UX/UI / Accesibilidad',
     period: 'Oct 2021 – Hoy',
-    company: 'Gire S.A. (Rapipago)',
+    company: 'Gire S.A.',
     items: [
       'Diseño end-to-end de plataformas de pagos en equipos multidisciplinarios bajo Scrum: relevamiento, user flows, wireframes y prototipos en Figma.',
-      'Creé y mantengo los design systems Aura, Rapipago y Gire — reduje un 60% el tiempo de diseño de pantallas.',
+      'Creé y mantengo 4 design systems, entre ellos Gire y Rapipago — reduje un 60% el tiempo de diseño de pantallas.',
       'Conduzco testeos de usabilidad con usuarios y transformo hallazgos en mejoras priorizadas.',
       'Elevé la accesibilidad de sitios institucionales de 55–65% a 90–100% (WCAG 2.2 AA).',
       'Integré IA generativa al proceso: migración a Claude Design, acelerando un 30% la exploración de flujos.',
