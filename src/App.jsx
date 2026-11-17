@@ -86,10 +86,10 @@ function About({ t }) {
   return (
     <section id="about" tabIndex={-1} className="section about">
       <div className="container">
-        <h2 className="section-title">{t.title}</h2>
-        <p className="section-subtitle">{t.subtitle}</p>
         <div className="about-grid">
           <div className="about-text">
+            <h2 className="section-title">{t.title}</h2>
+            <p className="section-subtitle">{t.subtitle}</p>
             {t.paragraphs.map((p) => <p key={p}>{p}</p>)}
           </div>
           <div className="about-highlights">

@@ -61,7 +61,7 @@ function Choices({ id, t }) {
 
 function Surface({ dark, id, t, tags }) {
   return (
-    <div className={`dsp-surface${dark ? ' cr-on-dark' : ''}`}>
+    <div className={`dsp-surface ${dark ? 'cr-on-dark' : 'cr-on-light'}`}>
       <p className="dsp-surface-label">{dark ? t.dark : t.light}</p>
       <div className="dsp-row">
         <button type="button" className="cr-btn cr-btn--primary">{t.primary}</button>

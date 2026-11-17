@@ -208,6 +208,10 @@
   align-items: start;
 }
 
+.about-text .section-subtitle {
+  margin-bottom: var(--space-6);
+}
+
 .about-text p {
   color: var(--color-text-body);
   line-height: var(--line-height-relaxed);

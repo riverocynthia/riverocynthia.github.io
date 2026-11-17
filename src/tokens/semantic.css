@@ -2,8 +2,11 @@
    Describen el USO, no el valor. Cada modo (light / dark) reasigna los
    mismos nombres: cambiar de modo no requiere tocar ningún componente. */
 
+/* Modo claro. También una superficie clara puntual (.cr-on-light) dentro de una página
+   en modo oscuro, por ejemplo un contenedor blanco: ambos usan los mismos valores. */
 :root,
-:root[data-theme="light"] {
+:root[data-theme="light"],
+.cr-on-light {
   --color-bg-page: var(--white-soft);
   --color-bg-subtle: var(--gray-100);
   --color-bg-inverse: var(--blue-900);
@@ -79,7 +82,8 @@
 }
 
 /* El fondo de la superficie se puede reemplazar (por ejemplo, con un degradado). */
-.cr-on-dark {
+.cr-on-dark,
+.cr-on-light {
   background: var(--color-bg-page);
   color: var(--color-text-body);
 }
