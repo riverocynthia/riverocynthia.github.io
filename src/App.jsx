@@ -49,6 +49,7 @@ function scrollToSection(id, duration = 900) {
 function Hero() {
   return (
     <section className="hero">
+      <div className="hero-pattern" aria-hidden="true" />
       <div className="container">
         <div className="hero-content">
           <div className="hero-eyebrow">

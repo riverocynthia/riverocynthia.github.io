@@ -28,10 +28,10 @@
 }
 
 .cr-btn--primary {
-  background: var(--color-accent-solid);
-  color: var(--color-on-accent-solid);
+  background: var(--color-brand);
+  color: var(--color-on-brand);
 }
-.cr-btn--primary:hover { background: var(--color-accent-solid-hover); }
+.cr-btn--primary:hover { background: var(--color-brand-hover); }
 
 .cr-btn--secondary {
   background: transparent;

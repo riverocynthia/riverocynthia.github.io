@@ -9,10 +9,12 @@ export function SkipLink() {
   return <a className="skip-link" href="#main">Saltar al contenido</a>
 }
 
-function MenuIcon({ open }) {
+function MenuIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
-      {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+    <svg className="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
     </svg>
   )
 }
@@ -84,7 +86,7 @@ export function Nav({ home = true }) {
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           onClick={() => setOpen(!open)}
         >
-          <MenuIcon open={open} />
+          <MenuIcon />
         </button>
         <ul id="nav-menu" className={`nav-links${open ? ' is-open' : ''}`}>
           {NAV_LINKS.map((label, i) => (
