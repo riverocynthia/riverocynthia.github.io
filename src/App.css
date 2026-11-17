@@ -119,42 +119,6 @@
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand) 8%, transparent) 0%, transparent 70%);
-  top: -100px;
-  right: -100px;
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent-solid) 6%, transparent) 0%, transparent 70%);
-  bottom: 0;
-  left: -50px;
-  pointer-events: none;
-}
-
-.hero::before,
-.hero::after {
-  display: none;
-}
-
-:root[data-theme="dark"] .hero {
-  background: var(--color-bg-page);
-}
-
-:root[data-theme="dark"] .hero::before,
-:root[data-theme="dark"] .hero::after {
-  display: block;
-}
-
 .hero-content {
   position: relative;
   z-index: 1;
