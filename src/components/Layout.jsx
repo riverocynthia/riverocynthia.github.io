@@ -188,11 +188,101 @@ export function BackToTop() {
   )
 }
 
+/* Mate interactivo: cebar, tomar sorbos y se lava. Todo con botones reales y el estado anunciado en texto. */
+const MATE_SIPS = 4
+
+function MateIllustration({ level, slurp, slurpText }) {
+  /* El agua sube de 0 a 4 sorbos; el vapor aparece mientras haya agua. */
+  const lift = (1 - level / MATE_SIPS) * 74
+  return (
+    <div className="mate-scene" aria-hidden="true">
+      <span className={`mate-slurp${slurp ? ' is-on' : ''}`}>{slurpText}</span>
+      <svg viewBox="0 0 160 176" focusable="false">
+        <defs>
+          <clipPath id="mate-inside"><path d="M42 72C32 100 38 140 80 150C122 140 128 100 118 72z" /></clipPath>
+        </defs>
+        <g className={`mate-steam${level > 0 ? ' is-on' : ''}`} fill="none" strokeLinecap="round" strokeWidth="3">
+          <path d="M60 52c-6-8 6-12 0-22" />
+          <path d="M80 50c-6-8 6-12 0-22" />
+          <path d="M100 52c-6-8 6-12 0-22" />
+        </g>
+        <path d="M32 66C14 100 22 152 80 164C138 152 146 100 128 66z" fill="var(--orange-700)" stroke="var(--orange-900)" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M42 72C32 100 38 140 80 150C122 140 128 100 118 72z" fill="var(--orange-950)" />
+        <g clipPath="url(#mate-inside)">
+          <rect className="mate-water" x="20" y="68" width="120" height="90" fill="var(--green-700)" style={{ transform: `translateY(${lift}px)` }} />
+        </g>
+        <ellipse cx="80" cy="66" rx="50" ry="10" fill="none" stroke="var(--orange-900)" strokeWidth="3" />
+        <path d="M36 66c8-18 30-26 48-18l4 18z" fill="var(--green-500)" stroke="var(--green-900)" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M112 18L92 124" stroke="var(--gray-600)" strokeWidth="6.4" strokeLinecap="round" />
+        <path d="M112 18L92 124" stroke="var(--gray-300)" strokeWidth="4" strokeLinecap="round" />
+        <path d="M110.4 26L95 108" stroke="#fff" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+        <path d="M105 16h14" stroke="var(--gray-600)" strokeWidth="5" strokeLinecap="round" />
+        <path d="M103.6 30.5l16 3" stroke="var(--gray-600)" strokeWidth="2.2" strokeLinecap="round" />
+        <g transform="rotate(10 90 134)">
+          <ellipse cx="90" cy="134" rx="7.5" ry="14" fill="var(--gray-300)" stroke="var(--gray-600)" strokeWidth="1.8" />
+          <g fill="var(--gray-600)">
+            <circle cx="87.6" cy="126" r="1.1" /><circle cx="92.4" cy="126" r="1.1" />
+            <circle cx="90" cy="130.5" r="1.1" /><circle cx="86.4" cy="134.5" r="1.1" /><circle cx="93.6" cy="134.5" r="1.1" />
+            <circle cx="90" cy="139" r="1.1" /><circle cx="87.6" cy="143" r="1.1" /><circle cx="92.4" cy="143" r="1.1" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  )
+}
+
+function MateCorner({ t }) {
+  const m = t.mate
+  const [level, setLevel] = useState(0)
+  const [last, setLast] = useState('empty')
+  const [slurp, setSlurp] = useState(false)
+  const timer = useRef(0)
+
+  useEffect(() => () => clearTimeout(timer.current), [])
+
+  function pour() {
+    setLevel(MATE_SIPS)
+    setLast('poured')
+  }
+
+  function sip() {
+    if (level === 0) {
+      setLast('flat')
+      return
+    }
+    setLevel((n) => n - 1)
+    setLast(level - 1 === 0 ? 'flat' : 'sipped')
+    setSlurp(true)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setSlurp(false), 1100)
+  }
+
+  return (
+    <div className="footer-mate-block">
+      <div className="footer-mate-intro">
+        <h2 id="footer-mate-title" className="footer-mate-title">{m.title}</h2>
+        <p className="footer-mate-lead">{m.lead}</p>
+        <div className="footer-mate-actions">
+          <button type="button" className="btn btn-primary" onClick={pour}>{m.pour}</button>
+          <button type="button" className="btn btn-secondary" onClick={sip}>{m.sip}</button>
+        </div>
+        <p className="footer-mate-status" role="status">
+          {m[last]}
+        </p>
+      </div>
+      <div className="footer-mate-play">
+        <MateIllustration level={level} slurp={slurp} slurpText={m.slurp} />
+      </div>
+    </div>
+  )
+}
+
 export function Footer() {
   const { lang, setLang } = useLang()
   const t = ui[lang]
   const otherLang = lang === 'es' ? 'en' : 'es'
   const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
+  const themeLabel = dark ? t.footerThemeToLight : t.footerThemeToDark
 
   function toggleTheme() {
     const next = dark ? 'light' : 'dark'
@@ -209,17 +299,23 @@ export function Footer() {
     <>
       <BackToTop />
       <footer className="footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} Cynthia Rivero · {t.footerCredit}</p>
-          <label className="footer-theme">
-            <span aria-hidden="true">{t.footerTheme}</span>
-            <ThemeSwitch checked={dark} onChange={toggleTheme} label={t.footerTheme} />
-          </label>
-          <label className="footer-theme">
-            <span aria-hidden="true" lang={otherLang}>{t.langLabel}</span>
-            <LangSwitch checked={lang === 'en'} onChange={() => setLang(otherLang)} label={t.langSwitchLabel} />
-          </label>
-          <p>{t.footerTokens}</p>
+        <div className="container footer-grid">
+          <MateCorner t={t} />
+          <div className="footer-data">
+            <label className="footer-theme">
+              <span aria-hidden="true" lang={otherLang}>{t.langLabel}</span>
+              <LangSwitch checked={lang === 'en'} onChange={() => setLang(otherLang)} label={t.langSwitchLabel} />
+            </label>
+            <label className="footer-theme">
+              <span aria-hidden="true">{themeLabel}</span>
+              <ThemeSwitch checked={dark} onChange={toggleTheme} label={themeLabel} />
+            </label>
+            <p>{t.footerTokens}</p>
+          </div>
+          <div className="footer-credit">
+            <p>© {new Date().getFullYear()} Cynthia Rivero.</p>
+            <p>{t.footerCredit}</p>
+          </div>
         </div>
       </footer>
     </>

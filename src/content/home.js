@@ -15,7 +15,17 @@ export const home = {
       line2: 'y las llevo hasta el código.',
       bio: 'Soy Cynthia Rivero. Más de 8 años diseñando productos digitales centrados en las personas. Especializada en WCAG 2.2, design systems y la integración de IA generativa y agentes al proceso de diseño.',
       cta: 'Ver mi portfolio',
-      scroll: 'scrollea para seguir leyendo',
+      scroll: 'pica la pelota para bajar',
+      rotator: {
+        lead: 'Ahora mismo, ',
+        phrases: [
+          'tomando mate',
+          'entre partido y partido de handball',
+          'con un musical sonando de fondo',
+          'entrenando en el playón',
+          'entrenando en el gimnasio',
+        ],
+      },
     },
     about: {
       title: 'Sobre mí',
@@ -163,7 +173,17 @@ export const home = {
       line2: 'and take them all the way to code.',
       bio: "I'm Cynthia Rivero. Over 8 years designing people-centered digital products. Specialized in WCAG 2.2, design systems, and bringing generative AI and agents into the design process.",
       cta: 'View my portfolio',
-      scroll: 'scroll down to keep reading',
+      scroll: 'dribble the ball to go down',
+      rotator: {
+        lead: 'Right now: ',
+        phrases: [
+          'sipping mate',
+          'between handball games',
+          'with a musical playing in the background',
+          'training on the outdoor court',
+          'training at the gym',
+        ],
+      },
     },
     about: {
       title: 'About me',
