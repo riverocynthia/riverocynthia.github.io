@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { Footer, Nav, SkipLink } from './components/Layout.jsx'
+import HandballIcon from './components/HandballIcon.jsx'
 import { usePageMeta, useLang } from './i18n.jsx'
 import { home } from './content/home.js'
 import { ui } from './content/ui.js'
@@ -49,40 +50,6 @@ function scrollToSection(id, duration = 900) {
   frame = requestAnimationFrame(step)
 }
 
-/* Pelota de handball: paneles de una pelota real (pentágonos rojos y hexágonos blancos) proyectados en 2D */
-const HANDBALL_PANELS = [
-  ['p', '14.4,57.3 27.6,52.1 39.6,66.1 33.8,80.0 18.2,74.5'],
-  ['p', '8.1,35.4 13.9,21.5 13.3,27.4 7.2,45.0 4.0,49.9'],
-  ['p', '46.2,90.3 64.4,86.8 72.4,89.6 59.2,94.8 43.0,95.3'],
-  ['p', '63.9,45.0 80.0,44.6 83.9,61.8 70.1,72.9 57.8,62.6'],
-  ['p', '26.6,22.2 40.3,11.1 55.9,16.5 51.8,31.0 33.7,34.5'],
-  ['p', '72.1,16.1 72.6,10.2 85.0,20.5 92.1,32.8 84.1,30.1'],
-  ['h', '4.0,49.9 7.2,45.0 14.4,57.3 18.2,74.5 15.0,79.5 7.9,67.2'],
-  ['h', '15.0,79.5 18.2,74.5 33.8,80.0 46.2,90.3 43.0,95.3 27.4,89.8'],
-  ['h', '13.3,27.4 26.6,22.2 33.7,34.5 27.6,52.1 14.4,57.3 7.2,45.0'],
-  ['h', '39.6,66.1 57.8,62.6 70.1,72.9 64.4,86.8 46.2,90.3 33.8,80.0'],
-  ['h', '33.7,34.5 51.8,31.0 63.9,45.0 57.8,62.6 39.6,66.1 27.6,52.1'],
-  ['h', '27.6,10.4 40.8,5.2 40.3,11.1 26.6,22.2 13.3,27.4 13.9,21.5'],
-  ['h', '40.8,5.2 57.0,4.7 72.6,10.2 72.1,16.1 55.9,16.5 40.3,11.1'],
-  ['h', '70.1,72.9 83.9,61.8 91.9,64.6 86.1,78.5 72.4,89.6 64.4,86.8'],
-  ['h', '80.0,44.6 84.1,30.1 92.1,32.8 96.0,50.1 91.9,64.6 83.9,61.8'],
-  ['h', '55.9,16.5 72.1,16.1 84.1,30.1 80.0,44.6 63.9,45.0 51.8,31.0'],
-]
-
-function HandballIcon() {
-  return (
-    <svg viewBox="0 0 100 100" focusable="false">
-      <circle cx="50" cy="50" r="47.5" fill="#fff" />
-      <g stroke="var(--red-900)" strokeWidth="2.4" strokeLinejoin="round">
-        {HANDBALL_PANELS.map(([kind, points]) => (
-          <polygon key={points} points={points} fill={kind === 'p' ? 'var(--red-500)' : '#fff'} />
-        ))}
-      </g>
-      <circle cx="50" cy="50" r="47.5" fill="none" stroke="var(--red-900)" strokeWidth="3" />
-    </svg>
-  )
-}
-
 /* Una frase al azar cada vez que se carga la página. El índice se guarda para que, al cambiar de idioma,
    se mantenga la misma frase traducida. */
 function HeroRotator({ t }) {
@@ -109,9 +76,34 @@ function HeroCourt() {
   )
 }
 
+/* Ficha de jugadora en código: decoración nerd arriba a la izquierda. Es solo ornamento, no se lee ni se enfoca. */
+function HeroCode() {
+  return (
+    <div className="hero-code" aria-hidden="true">
+      <div className="hero-code-bar">
+        <svg viewBox="0 0 10 10" width="10" height="10" focusable="false"><path d="M1 8h8" /></svg>
+        <svg viewBox="0 0 10 10" width="10" height="10" focusable="false"><rect x="1.5" y="1.5" width="7" height="7" /></svg>
+        <svg viewBox="0 0 10 10" width="10" height="10" focusable="false"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" /></svg>
+      </div>
+      <pre>
+        <code>
+          <span className="code-line"><span className="tk-kw">const</span> cynthia <span className="tk-p">= {'{'}</span></span>
+          <span className="code-line">{'  '}role<span className="tk-p">:</span> <span className="tk-str">"Product Designer"</span><span className="tk-p">,</span></span>
+          <span className="code-line">{'  '}level<span className="tk-p">:</span> <span className="tk-num">8</span><span className="tk-p">,</span></span>
+          <span className="code-line">{'  '}sport<span className="tk-p">:</span> <span className="tk-str">"handball"</span><span className="tk-p">,</span></span>
+          <span className="code-line">{'  '}fuel<span className="tk-p">:</span> <span className="tk-str">"mate"</span><span className="tk-p">,</span></span>
+          <span className="code-line">{'  '}accessible<span className="tk-p">:</span> <span className="tk-num">true</span><span className="tk-p">,</span></span>
+          <span className="code-line"><span className="tk-p">{'}'};</span><span className="hero-code-cursor">█</span></span>
+        </code>
+      </pre>
+    </div>
+  )
+}
+
 function Hero({ t }) {
   return (
     <section className="hero">
+      <HeroCode />
       <HeroCourt />
       <div className="container">
         <div className="hero-content">

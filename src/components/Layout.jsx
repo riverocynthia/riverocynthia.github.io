@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLang } from '../i18n.jsx'
 import { NAV_IDS, ui } from '../content/ui.js'
+import HandballIcon from './HandballIcon.jsx'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -147,15 +148,7 @@ function LangSwitch({ checked, onChange, label }) {
   )
 }
 
-function ArrowUpIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  )
-}
-
-/* Flecha flotante: aparece al llegar a la última sección y vuelve al inicio con scroll suave */
+/* Pelota flotante: aparece al llegar a la última sección y vuelve al inicio con scroll suave */
 export function BackToTop() {
   const { lang } = useLang()
   const [visible, setVisible] = useState(false)
@@ -182,7 +175,7 @@ export function BackToTop() {
 
   return (
     <button type="button" className="back-to-top" data-visible={visible} onClick={goTop} aria-label={ui[lang].backToTop}>
-      <ArrowUpIcon />
+      <HandballIcon />
       <span className="back-to-top-tip" aria-hidden="true">{ui[lang].backToTop}</span>
     </button>
   )

@@ -1005,3 +1005,41 @@
   .about-highlights { grid-template-columns: 1fr; }
   .about-stat { flex-direction: row; align-items: center; gap: var(--space-4); }
 }
+
+/* Ficha en código, arriba a la izquierda (decoración nerd, muy tenue) */
+.hero-code {
+  position: absolute;
+  top: 92px;
+  left: max(2vw, 8px);
+  width: 232px;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border: var(--stroke-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  /* Decoración: se atenúa con filter para que quede muy tenue sin afectar el chequeo de contraste del texto real */
+  filter: opacity(0.45);
+  pointer-events: none;
+  user-select: none;
+}
+/* Controles de ventana estilo Windows (minimizar, maximizar y cerrar) a la derecha */
+.hero-code-bar { display: flex; justify-content: flex-end; gap: var(--space-4); margin-bottom: var(--space-3); }
+.hero-code-bar svg { fill: none; stroke: var(--color-text-muted); stroke-width: 1.2; }
+.hero-code pre { margin: 0; }
+.hero-code code {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-text-body);
+  white-space: pre;
+}
+.hero-code .code-line { display: block; }
+.hero-code .tk-kw,
+.hero-code .tk-num { color: var(--color-brand); }
+.hero-code .tk-str { color: var(--color-accent-text); }
+.hero-code .tk-p { color: var(--color-text-muted); }
+.hero-code-cursor { color: var(--color-brand); }
+/* Solo cuando hay lugar a la izquierda del texto del hero */
+@media (max-width: 1320px) {
+  .hero-code { display: none; }
+}

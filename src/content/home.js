@@ -176,7 +176,7 @@ export const home = {
       cta: 'View my portfolio',
       scroll: 'dribble the ball to go down',
       rotator: {
-        lead: 'Right now: ',
+        lead: 'Right now, ',
         phrases: [
           'sipping mate',
           'between handball games',
@@ -195,7 +195,7 @@ export const home = {
         "I believe good design is invisible: it flows, it's inclusive, and it makes complex things look simple.",
       ],
       stats: [
-        ['+20', 'years of working as a team.'],
+        ['+20', 'years working in a team.'],
         ['+8', 'years of experience in digital product design.'],
         ['60%', 'reduction in design time with in-house design systems.'],
         ['4', 'design systems created and maintained (including Gire and Rapipago).'],
@@ -308,7 +308,7 @@ export const home = {
       subtitle: 'Education and ongoing professional development.',
       cards: [
         { label: 'Degree', title: 'Multimedia Design', sub: 'Da Vinci School of Multimedia Art · 2014 – 2017' },
-        { label: 'Languages', title: 'English B2', sub: 'Upper-intermediate level' },
+        { label: 'Languages', title: 'Spanish (native) · English B2', sub: 'Upper-intermediate level in English' },
       ],
       coursesTitle: 'Courses and certifications',
       courses: [
