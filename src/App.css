@@ -258,20 +258,30 @@
   font-size: var(--font-size-md);
 }
 
+/* Cinco tarjetas en grilla de 2 x 2 x 1: dos filas de dos y la última a lo ancho */
 .about-highlights {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
 .about-stat {
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-2);
   padding: var(--space-5);
   background: var(--color-surface);
   border: var(--stroke-thin) solid var(--color-border);
   border-radius: var(--radius-lg);
+}
+
+.about-stat:last-child {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .about-stat-num {
@@ -988,4 +998,10 @@
     align-items: center;
   }
   .footer-data .footer-theme { justify-content: center; }
+}
+
+/* Tablet y celular: las tarjetas vuelven a una sola columna, con el número al lado del texto */
+@media (max-width: 1024px) {
+  .about-highlights { grid-template-columns: 1fr; }
+  .about-stat { flex-direction: row; align-items: center; gap: var(--space-4); }
 }

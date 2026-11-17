@@ -36,10 +36,11 @@ export const home = {
         'Creo que el buen diseño es invisible: fluye, es inclusivo y hace que las cosas complejas parezcan simples.',
       ],
       stats: [
-        ['8+', 'años de experiencia en diseño de producto digital.'],
+        ['+20', 'años trabajando en equipo.'],
+        ['+8', 'años de experiencia en diseño de producto digital.'],
         ['60%', 'reducción en tiempo de diseño con design systems propios.'],
-        ['90–100%', 'score de accesibilidad en sitios institucionales (Lighthouse / WCAG 2.2 AA).'],
         ['4', 'design systems creados y mantenidos (entre ellos Gire y Rapipago).'],
+        ['90–100%', 'score de accesibilidad en sitios institucionales (Lighthouse / WCAG 2.2 AA).'],
       ],
     },
     experience: {
@@ -194,10 +195,11 @@ export const home = {
         "I believe good design is invisible: it flows, it's inclusive, and it makes complex things look simple.",
       ],
       stats: [
-        ['8+', 'years of experience in digital product design.'],
+        ['+20', 'years of working as a team.'],
+        ['+8', 'years of experience in digital product design.'],
         ['60%', 'reduction in design time with in-house design systems.'],
-        ['90–100%', 'accessibility score on institutional sites (Lighthouse / WCAG 2.2 AA).'],
         ['4', 'design systems created and maintained (including Gire and Rapipago).'],
+        ['90–100%', 'accessibility score on institutional sites (Lighthouse / WCAG 2.2 AA).'],
       ],
     },
     experience: {
