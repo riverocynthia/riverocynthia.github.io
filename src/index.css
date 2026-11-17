@@ -152,12 +152,12 @@ section[tabindex="-1"]:focus {
 }
 
 .btn-primary {
-  background: var(--color-brand);
-  color: var(--color-on-brand);
+  background: var(--color-accent-solid);
+  color: var(--color-on-accent-solid);
 }
 
 .btn-primary:hover {
-  background: var(--color-brand-hover);
+  background: var(--color-accent-solid-hover);
 }
 
 .btn-secondary {

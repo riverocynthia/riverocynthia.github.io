@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import './App.css'
 import { Footer, Nav, SkipLink } from './components/Layout.jsx'
+import { usePageMeta, useLang } from './i18n.jsx'
+import { home } from './content/home.js'
+import { ui } from './content/ui.js'
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 
@@ -46,26 +49,21 @@ function scrollToSection(id, duration = 900) {
   frame = requestAnimationFrame(step)
 }
 
-function Hero() {
+function Hero({ t }) {
   return (
     <section className="hero">
-      <div className="hero-pattern" aria-hidden="true" />
       <div className="container">
         <div className="hero-content">
           <div className="hero-eyebrow">
-            <span className="hero-eyebrow-text">Product Designer · UX/UI · Accesibilidad</span>
+            <span className="hero-eyebrow-text">{t.eyebrow}</span>
           </div>
           <h1 className="hero-title">
-            Diseño interfaces accesibles{' '}<br />
-            <span className="highlight">y las llevo hasta el código.</span>
+            {t.line1}{' '}<br />
+            <span className="highlight">{t.line2}</span>
           </h1>
-          <p className="hero-bio">
-            Soy Cynthia Rivero. Más de 8 años diseñando productos digitales centrados en las personas.
-            Especializada en WCAG 2.2, design systems y la integración de IA generativa
-            y agentes al proceso de diseño.
-          </p>
+          <p className="hero-bio">{t.bio}</p>
           <div className="hero-actions">
-            <a href="#portfolio" className="btn btn-primary">Ver mi portfolio</a>
+            <a href="#portfolio" className="btn btn-primary">{t.cta}</a>
           </div>
         </div>
       </div>
@@ -77,52 +75,30 @@ function Hero() {
           scrollToSection('about')
         }}
       >
-        <span className="hero-scroll-text">scrollea para seguir leyendo</span>
+        <span className="hero-scroll-text">{t.scroll}</span>
         <span className="hero-scroll-arrow" aria-hidden="true">↓</span>
       </a>
     </section>
   )
 }
 
-function About() {
+function About({ t }) {
   return (
     <section id="about" tabIndex={-1} className="section about">
       <div className="container">
-        <h2 className="section-title">Sobre mí</h2>
-        <p className="section-subtitle">Diseño con propósito, empatía y atención al detalle.</p>
+        <h2 className="section-title">{t.title}</h2>
+        <p className="section-subtitle">{t.subtitle}</p>
         <div className="about-grid">
           <div className="about-text">
-            <p>
-              Mis conocimientos cruzan tres áreas que suelen estar separadas: diseño de producto,
-              accesibilidad y código. Estos me permiten diseñar un flujo, comprobar que funciona
-              para todas las personas y dejarlo listo para que desarrollo lo construya.
-            </p>
-            <p>
-              Integro IA generativa y agentes en mi proceso para acelerar la exploración,
-              la validación de datos y la documentación.
-            </p>
-            <p>
-              Creo que el buen diseño es invisible: fluye, es inclusivo y hace que
-              las cosas complejas parezcan simples.
-            </p>
+            {t.paragraphs.map((p) => <p key={p}>{p}</p>)}
           </div>
           <div className="about-highlights">
-            <div className="about-stat">
-              <span className="about-stat-num">8+</span>
-              <span className="about-stat-label">años de experiencia en diseño de producto digital.</span>
-            </div>
-            <div className="about-stat">
-              <span className="about-stat-num">60%</span>
-              <span className="about-stat-label">reducción en tiempo de diseño con design systems propios.</span>
-            </div>
-            <div className="about-stat">
-              <span className="about-stat-num">90–100%</span>
-              <span className="about-stat-label">score de accesibilidad en sitios institucionales (Lighthouse / WCAG 2.2 AA).</span>
-            </div>
-            <div className="about-stat">
-              <span className="about-stat-num">4</span>
-              <span className="about-stat-label">design systems creados y mantenidos (entre ellos Gire y Rapipago).</span>
-            </div>
+            {t.stats.map(([num, label]) => (
+              <div className="about-stat" key={num}>
+                <span className="about-stat-num">{num}</span>
+                <span className="about-stat-label">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -130,51 +106,14 @@ function About() {
   )
 }
 
-const EXPERIENCE = [
-  {
-    current: true,
-    role: 'Sr. Diseñadora UX/UI / Accesibilidad',
-    period: 'Oct 2021 – Hoy',
-    company: 'Gire S.A.',
-    items: [
-      'Diseño end-to-end de plataformas de pagos en equipos multidisciplinarios bajo Scrum: relevamiento, user flows, wireframes y prototipos en Figma.',
-      'Creé y mantengo 4 design systems, entre ellos Gire y Rapipago — reduje un 60% el tiempo de diseño de pantallas.',
-      'Conduzco testeos de usabilidad con usuarios y transformo hallazgos en mejoras priorizadas.',
-      'Elevé la accesibilidad de sitios institucionales de 55–65% a 90–100% (WCAG 2.2 AA).',
-      'Integré IA generativa al proceso: migración a Claude Design, acelerando un 30% la exploración de flujos.',
-      'Implementé spec-driven development en Markdown para que agentes de IA generen sitios y documenten mejoras.',
-    ],
-  },
-  {
-    current: false,
-    role: 'Diseñadora UI y Desarrolladora Web',
-    period: 'Feb 2018 – Sep 2021',
-    company: 'Contenidos Públicos S.E. — cont.ar',
-    items: [
-      'Diseñé la interfaz y realicé testeos de usabilidad de la plataforma de streaming Cont.ar.',
-      'Desarrollé el front-end con React y Vue.js, trabajando junto al equipo técnico.',
-      'Adapté piezas gráficas de series, películas y festivales internacionales para redes y el sitio.',
-    ],
-  },
-  {
-    current: false,
-    role: 'Diseñadora Gráfica',
-    period: 'May 2017 – Ene 2018',
-    company: 'Tip Travel Bureau',
-    items: [
-      'Diseñé piezas de comunicación para web, redes sociales, mailing y eventos de turismo (FIT).',
-    ],
-  },
-]
-
-function Experience() {
+function Experience({ t }) {
   return (
     <section id="experience" className="section experience">
       <div className="container">
-        <h2 className="section-title">Experiencia</h2>
-        <p className="section-subtitle">Trayectoria en diseño de producto y desarrollo front-end.</p>
+        <h2 className="section-title">{t.title}</h2>
+        <p className="section-subtitle">{t.subtitle}</p>
         <div className="timeline">
-          {EXPERIENCE.map((job) => (
+          {t.jobs.map((job) => (
             <div className="timeline-item" key={job.company}>
               <div className={`timeline-dot${job.current ? ' current' : ''}`} />
               <div className="timeline-card">
@@ -195,67 +134,15 @@ function Experience() {
   )
 }
 
-const CASE_PDF = `${import.meta.env.BASE_URL}caso-sistema-de-cobros-presencial.pdf`
-
-const CASES = [
-  {
-    kind: 'Caso de estudio · versión NDA',
-    title: 'Sistema de cobros presencial',
-    visualNote: 'PDF · 18 páginas',
-    summary:
-      'Cómo se actualizó la plataforma de una red de cobranza presencial: de una aplicación de escritorio antigua a una plataforma web moderna, consistente y accesible.',
-    meta: [
-      ['Rol', 'Lead Product Designer'],
-      ['Período', '2024 – 2026'],
-      ['Equipo', '2 diseñadores UX/UI · 1 dev front-end'],
-    ],
-    results: [
-      '5 de 6 tareas resueltas de forma autónoma en el primer uso',
-      '~2 meses menos de cronograma gracias al design system',
-      'Exploré 4 versiones del inicio y descarté 3 validándolas con el equipo de soporte a cajeros',
-      'Funciona en web y tablet, sin equipos especiales',
-    ],
-    tags: ['UX/UI', 'Design system', 'Tokens multimarca', 'Accesibilidad', 'Testeo de usabilidad', 'React'],
-    actions: [
-      { label: 'Ver caso', href: `${import.meta.env.BASE_URL}casos/cobros-presencial/`, primary: true },
-      { label: 'Descargar PDF', href: CASE_PDF, download: true },
-    ],
-  },
-  {
-    kind: 'Proyecto propio',
-    title: 'Design system personal',
-    visualNote: 'v1.1.0 · Documentación en vivo',
-    swatches: ['blue-500', 'cyan-400', 'orange-500', 'gray-500'],
-    summary:
-      'El sistema de diseño que usa este mismo sitio: tokens en tres capas con modo claro y oscuro, componentes accesibles y una documentación que mide el contraste en vivo.',
-    meta: [
-      ['Rol', 'Diseño y desarrollo'],
-      ['Año', '2026'],
-      ['Stack', 'React · Vite · CSS'],
-    ],
-    results: [
-      'Tokens en capas (primitivos, semánticos y de componente), con modo claro y oscuro',
-      '18 pares de color medidos en vivo contra WCAG 2.2 AA',
-      'Componentes con teclado, foco visible y estados: botón, selectores, tags y más',
-    ],
-    tags: ['Design system', 'Tokens', 'Accesibilidad', 'WCAG 2.2', 'React', 'CSS'],
-    actions: [
-      { label: 'Ver proyecto', href: `${import.meta.env.BASE_URL}casos/design-system/`, primary: true },
-      { label: 'Ver documentación', href: 'https://riverocynthia.github.io/design-system/', external: true },
-      { label: 'Ver código', href: 'https://github.com/riverocynthia/design-system', external: true },
-    ],
-  },
-]
-
-function Portfolio() {
+function Portfolio({ t, newTab }) {
   return (
     <section id="portfolio" className="section portfolio">
       <div className="container">
-        <h2 className="section-title">Portfolio</h2>
-        <p className="section-subtitle">Casos de estudio y proyectos propios.</p>
+        <h2 className="section-title">{t.title}</h2>
+        <p className="section-subtitle">{t.subtitle}</p>
         <div className="case-list">
-          {CASES.map((c) => (
-            <article className="case-card" key={c.title}>
+          {t.cases.map((c) => (
+            <article className="case-card" key={c.href || c.title}>
               <div className="case-card-visual" aria-hidden="true">
                 <span className="case-card-visual-label">{c.kind}</span>
                 <span className="case-card-visual-title">{c.title}</span>
@@ -283,19 +170,19 @@ function Portfolio() {
                   {c.results.map((r) => <li key={r}>{r}</li>)}
                 </ul>
                 <div className="skill-tags case-tags">
-                  {c.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+                  {c.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}
                 </div>
                 <div className="case-actions">
                   {c.actions.map((a) => (
                     <a
-                      key={a.label}
+                      key={a.href}
                       href={a.href}
                       className={`btn ${a.primary ? 'btn-primary' : 'btn-secondary'}`}
                       {...(a.external ? { target: '_blank', rel: 'noreferrer' } : {})}
                       {...(a.download ? { download: true } : {})}
                     >
                       {a.label}
-                      {a.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+                      {a.external && <span className="sr-only">{newTab}</span>}
                     </a>
                   ))}
                 </div>
@@ -308,52 +195,19 @@ function Portfolio() {
   )
 }
 
-const SKILLS = [
-  {
-    icon: '🎨',
-    title: 'UX / UI Design',
-    tags: ['User flows', 'Arquitectura de información', 'Wireframes', 'Prototipado', 'Testing de usabilidad', 'UX Writing'],
-  },
-  {
-    icon: '♿',
-    title: 'Accesibilidad Digital',
-    tags: ['WCAG 2.2', 'Axe DevTools', 'Lighthouse', 'Auditoría AA manual', 'Componentes accesibles'],
-  },
-  {
-    icon: '🧩',
-    title: 'Design Systems',
-    tags: ['Tokens', 'Componentes', 'Variantes', 'Auto-layout', 'Documentación', 'Handoff'],
-  },
-  {
-    icon: '🤖',
-    title: 'IA Aplicada al Diseño',
-    tags: ['Claude', 'Claude Design', 'Gemini', 'Copilot', 'Agentes', 'Spec-driven development'],
-  },
-  {
-    icon: '💻',
-    title: 'Front-end',
-    tags: ['HTML5', 'CSS3', 'SASS', 'JavaScript', 'React', 'Vue.js'],
-  },
-  {
-    icon: '🛠️',
-    title: 'Herramientas',
-    tags: ['Figma', 'Illustrator', 'Photoshop', 'After Effects', 'VS Code', 'Scrum'],
-  },
-]
-
-function Skills() {
+function Skills({ t }) {
   return (
     <section id="skills" className="section skills">
       <div className="container">
-        <h2 className="section-title">Habilidades</h2>
-        <p className="section-subtitle">Disciplinas y tecnologías que domino.</p>
+        <h2 className="section-title">{t.title}</h2>
+        <p className="section-subtitle">{t.subtitle}</p>
         <div className="skills-grid">
-          {SKILLS.map((s) => (
-            <div className="skill-card" key={s.title}>
+          {t.groups.map((s) => (
+            <div className="skill-card" key={s.icon}>
               <div className="skill-card-icon" aria-hidden="true">{s.icon}</div>
               <h3 className="skill-card-title">{s.title}</h3>
               <div className="skill-tags">
-                {s.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+                {s.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}
               </div>
             </div>
           ))}
@@ -363,37 +217,24 @@ function Skills() {
   )
 }
 
-const COURSES = [
-  { name: 'Claude 101, Introduction to agent skills, AI fluency framework, AI Capabilities and limitations, Claude Code in action', meta: '2026 · Anthropic Skilljar' },
-  { name: 'AI for UI and UX Designers | Design Smarter, Not Harder', meta: '2026 · Udemy' },
-  { name: 'Liderazgo 360°; Liderazgo Innovador: Neurodiversidad y Sesgos Inconscientes; Secretos de Oratoria de un ex-CEO', meta: '2025 · Udemy' },
-  { name: 'Diseño para la accesibilidad (WCAG 2.2)', meta: '2023 · Udemy' },
-  { name: 'Diseño de componentes accesibles en Figma; UX deep dive: Foundational Research', meta: '2023 · LinkedIn Learning' },
-]
-
-function Education() {
+function Education({ t }) {
   return (
     <section id="education" className="section education">
       <div className="container">
-        <h2 className="section-title">Educación</h2>
-        <p className="section-subtitle">Formación y desarrollo profesional continuo.</p>
+        <h2 className="section-title">{t.title}</h2>
+        <p className="section-subtitle">{t.subtitle}</p>
         <div className="edu-grid">
-          <div className="edu-card">
-            <p className="edu-card-label">Título</p>
-            <p className="edu-card-title">Diseño Multimedial</p>
-            <p className="edu-card-sub">Escuela Da Vinci de Arte Multimedial · 2014 – 2017</p>
-          </div>
-          <div className="edu-card">
-            <p className="edu-card-label">Idiomas</p>
-            <p className="edu-card-title">Inglés B2</p>
-            <p className="edu-card-sub">Nivel intermedio-avanzado</p>
-          </div>
+          {t.cards.map((c) => (
+            <div className="edu-card" key={c.title}>
+              <p className="edu-card-label">{c.label}</p>
+              <p className="edu-card-title">{c.title}</p>
+              <p className="edu-card-sub">{c.sub}</p>
+            </div>
+          ))}
         </div>
-        <h3 className="edu-subtitle">
-          Cursos y certificaciones
-        </h3>
+        <h3 className="edu-subtitle">{t.coursesTitle}</h3>
         <div className="courses-list">
-          {COURSES.map((c) => (
+          {t.courses.map((c) => (
             <div className="course-item" key={c.name}>
               <p className="course-name">{c.name}</p>
               <p className="course-meta">{c.meta}</p>
@@ -405,11 +246,11 @@ function Education() {
   )
 }
 
-function Contact() {
+function Contact({ t, newTab }) {
   return (
     <section id="contact" className="section contact">
       <div className="container">
-        <h2 className="section-title">Contacto</h2>
+        <h2 className="section-title">{t.title}</h2>
         <div className="contact-grid">
           <div className="contact-info">
             <div className="contact-links">
@@ -420,12 +261,12 @@ function Contact() {
               <a href="https://linkedin.com/in/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
                 <span className="contact-link-icon" aria-hidden="true">💼</span>
                 <span className="contact-link-text">linkedin.com/in/riverocynthia</span>
-                <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                <span className="sr-only">{newTab}</span>
               </a>
               <a href="https://github.com/riverocynthia" target="_blank" rel="noreferrer" className="contact-link">
                 <span className="contact-link-icon" aria-hidden="true">🐙</span>
                 <span className="contact-link-text">github.com/riverocynthia</span>
-                <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                <span className="sr-only">{newTab}</span>
               </a>
             </div>
           </div>
@@ -448,6 +289,9 @@ function useScrollToHash() {
 }
 
 export default function App() {
+  const { lang } = useLang()
+  const t = home[lang]
+  usePageMeta(t.meta.title, t.meta.description)
   useScrollToHash()
 
   return (
@@ -455,13 +299,13 @@ export default function App() {
       <SkipLink />
       <Nav />
       <main id="main" tabIndex={-1}>
-        <Hero />
-        <About />
-        <Portfolio />
-        <Experience />
-        <Skills />
-        <Education />
-        <Contact />
+        <Hero t={t.hero} />
+        <About t={t.about} />
+        <Portfolio t={t.portfolio} newTab={ui[lang].newTab} />
+        <Experience t={t.experience} />
+        <Skills t={t.skills} />
+        <Education t={t.education} />
+        <Contact t={t.contact} newTab={ui[lang].newTab} />
       </main>
       <Footer />
     </>

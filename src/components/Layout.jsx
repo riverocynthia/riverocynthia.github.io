@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLang } from '../i18n.jsx'
+import { NAV_IDS, ui } from '../content/ui.js'
 
 const BASE = import.meta.env.BASE_URL
 
-const NAV_LINKS = ['Sobre mí', 'Portfolio', 'Experiencia', 'Habilidades', 'Educación', 'Contacto']
-const NAV_IDS = ['about', 'portfolio', 'experience', 'skills', 'education', 'contact']
-
 export function SkipLink() {
-  return <a className="skip-link" href="#main">Saltar al contenido</a>
+  const { lang } = useLang()
+  return <a className="skip-link" href="#main">{ui[lang].skip}</a>
 }
 
 function MenuIcon() {
@@ -57,6 +57,8 @@ function useActiveSection(ids) {
 
 /* home = true en la página principal (anclas locales); false en el resto, donde los links vuelven a la home */
 export function Nav({ home = true }) {
+  const { lang } = useLang()
+  const t = ui[lang]
   const [open, setOpen] = useState(false)
   const toggleRef = useRef(null)
   const prefix = home ? '' : BASE
@@ -74,7 +76,7 @@ export function Nav({ home = true }) {
   }, [open])
 
   return (
-    <nav className="nav" aria-label="Principal">
+    <nav className="nav" aria-label={t.navLabel}>
       <div className="nav-inner">
         <a href={home ? '#main' : BASE} className="nav-logo">Cynthia<span>.</span></a>
         <button
@@ -83,17 +85,17 @@ export function Nav({ home = true }) {
           className="nav-toggle"
           aria-expanded={open}
           aria-controls="nav-menu"
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={open ? t.closeMenu : t.openMenu}
           onClick={() => setOpen(!open)}
         >
           <MenuIcon />
         </button>
         <ul id="nav-menu" className={`nav-links${open ? ' is-open' : ''}`}>
-          {NAV_LINKS.map((label, i) => (
-            <li key={label}>
+          {t.navLinks.map((label, i) => (
+            <li key={NAV_IDS[i]}>
               <a
                 href={`${prefix}#${NAV_IDS[i]}`}
-                className={label === 'Contacto' ? 'btn btn-secondary nav-cta' : ''}
+                className={NAV_IDS[i] === 'contact' ? 'btn btn-secondary nav-cta' : ''}
                 aria-current={active === NAV_IDS[i] ? 'location' : undefined}
                 onClick={() => setOpen(false)}
               >
@@ -134,6 +136,17 @@ export function ThemeSwitch({ checked, onChange, label, disabled = false }) {
   )
 }
 
+/* Mismo switch, con ES / EN en lugar de sol y luna. Apagado = español, encendido = inglés. */
+function LangSwitch({ checked, onChange, label }) {
+  return (
+    <button type="button" role="switch" aria-checked={checked} aria-label={label} className="cr-switch lang-switch" onClick={onChange}>
+      <span className="cr-switch__icon cr-switch__icon--start" aria-hidden="true">ES</span>
+      <span className="cr-switch__icon cr-switch__icon--end" aria-hidden="true">EN</span>
+      <span className="cr-switch__thumb" aria-hidden="true">{checked ? 'EN' : 'ES'}</span>
+    </button>
+  )
+}
+
 function ArrowUpIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
@@ -144,6 +157,7 @@ function ArrowUpIcon() {
 
 /* Flecha flotante: aparece al llegar a la última sección y vuelve al inicio con scroll suave */
 export function BackToTop() {
+  const { lang } = useLang()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -167,14 +181,17 @@ export function BackToTop() {
   }
 
   return (
-    <button type="button" className="back-to-top" data-visible={visible} onClick={goTop} aria-label="Ir hacia arriba">
+    <button type="button" className="back-to-top" data-visible={visible} onClick={goTop} aria-label={ui[lang].backToTop}>
       <ArrowUpIcon />
-      <span className="back-to-top-tip" aria-hidden="true">Ir hacia arriba</span>
+      <span className="back-to-top-tip" aria-hidden="true">{ui[lang].backToTop}</span>
     </button>
   )
 }
 
 export function Footer() {
+  const { lang, setLang } = useLang()
+  const t = ui[lang]
+  const otherLang = lang === 'es' ? 'en' : 'es'
   const [dark, setDark] = useState(() => document.documentElement.dataset.theme === 'dark')
 
   function toggleTheme() {
@@ -190,17 +207,21 @@ export function Footer() {
 
   return (
     <>
-    <BackToTop />
-    <footer className="footer">
-      <div className="container">
-        <p>© {new Date().getFullYear()} Cynthia Rivero · Diseñada con ♥ en Buenos Aires</p>
-        <label className="footer-theme">
-          <span aria-hidden="true">Probá el sitio en modo oscuro</span>
-          <ThemeSwitch checked={dark} onChange={toggleTheme} label="Probá el sitio en modo oscuro" />
-        </label>
-        <p>Tokens semánticos, un solo CSS.</p>
-      </div>
-    </footer>
+      <BackToTop />
+      <footer className="footer">
+        <div className="container">
+          <p>© {new Date().getFullYear()} Cynthia Rivero · {t.footerCredit}</p>
+          <label className="footer-theme">
+            <span aria-hidden="true">{t.footerTheme}</span>
+            <ThemeSwitch checked={dark} onChange={toggleTheme} label={t.footerTheme} />
+          </label>
+          <label className="footer-theme">
+            <span aria-hidden="true" lang={otherLang}>{t.langLabel}</span>
+            <LangSwitch checked={lang === 'en'} onChange={() => setLang(otherLang)} label={t.langSwitchLabel} />
+          </label>
+          <p>{t.footerTokens}</p>
+        </div>
+      </footer>
     </>
   )
 }

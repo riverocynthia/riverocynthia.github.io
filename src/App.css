@@ -94,20 +94,6 @@
 }
 
 /* Hero */
-/* Patrón pied de poule: máscara de 32 px pintada con gray-50 sobre fondo blanco */
-.hero-pattern {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--gray-50);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='16' height='4'/%3E%3Crect x='24' y='0' width='8' height='4'/%3E%3Crect x='0' y='4' width='16' height='4'/%3E%3Crect x='20' y='4' width='8' height='4'/%3E%3Crect x='0' y='8' width='24' height='4'/%3E%3Crect x='0' y='12' width='20' height='4'/%3E%3Crect x='28' y='12' width='4' height='4'/%3E%3Crect x='0' y='16' width='8' height='4'/%3E%3Crect x='0' y='20' width='4' height='4'/%3E%3Crect x='12' y='20' width='4' height='4'/%3E%3Crect x='8' y='24' width='8' height='4'/%3E%3Crect x='4' y='28' width='8' height='4'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='16' height='4'/%3E%3Crect x='24' y='0' width='8' height='4'/%3E%3Crect x='0' y='4' width='16' height='4'/%3E%3Crect x='20' y='4' width='8' height='4'/%3E%3Crect x='0' y='8' width='24' height='4'/%3E%3Crect x='0' y='12' width='20' height='4'/%3E%3Crect x='28' y='12' width='4' height='4'/%3E%3Crect x='0' y='16' width='8' height='4'/%3E%3Crect x='0' y='20' width='4' height='4'/%3E%3Crect x='12' y='20' width='4' height='4'/%3E%3Crect x='8' y='24' width='8' height='4'/%3E%3Crect x='4' y='28' width='8' height='4'/%3E%3C/svg%3E");
-  -webkit-mask-size: 32px 32px;
-  mask-size: 32px 32px;
-  pointer-events: none;
-}
-/* En modo oscuro: mismo patrón, apenas más claro que el fondo (igual de sutil que gray-50 sobre blanco) */
-:root[data-theme="dark"] .hero-pattern { background: color-mix(in srgb, var(--color-bg-page) 97%, white); }
 .hero {
   min-height: 100vh;
   background: var(--color-bg-page);
@@ -115,7 +101,6 @@
   align-items: center;
   padding-top: 64px;
   position: relative;
-  isolation: isolate;
   overflow: hidden;
 }
 
@@ -666,8 +651,9 @@
 }
 
 .footer-theme {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-3);
   margin: var(--space-3) 0;
   cursor: pointer;
@@ -833,3 +819,14 @@
 @media (prefers-reduced-motion: reduce) {
   .nav-toggle, .nav-toggle .menu-icon path { transition: none; }
 }
+
+/* Switch de idioma: mismo componente que el de tema, con texto en lugar de íconos */
+.lang-switch .cr-switch__icon,
+.lang-switch .cr-switch__thumb {
+  font-family: var(--font-family-body);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.footer .footer-theme + .footer-theme { margin-top: 0; }
