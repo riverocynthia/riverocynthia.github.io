@@ -2,15 +2,15 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 const LangContext = createContext({ lang: 'es', setLang: () => {} })
 
-/* Idioma inicial: el que la persona eligió antes; si no hay elección, el del navegador (inglés si empieza con "en"). */
+/* Idioma inicial: el que la persona eligió antes; si no hay elección, español (idioma por defecto del sitio). */
 function initialLang() {
   try {
     const saved = localStorage.getItem('lang')
     if (saved === 'es' || saved === 'en') return saved
   } catch (e) {
-    /* sin almacenamiento: se usa el idioma del navegador */
+    /* sin almacenamiento: se usa el idioma por defecto */
   }
-  return (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es'
+  return 'es'
 }
 
 export function LangProvider({ children }) {

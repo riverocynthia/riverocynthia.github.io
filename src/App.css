@@ -1003,7 +1003,7 @@
 /* Tablet y celular: las tarjetas vuelven a una sola columna, con el número al lado del texto */
 @media (max-width: 1024px) {
   .about-highlights { grid-template-columns: 1fr; }
-  .about-stat { flex-direction: row; align-items: center; gap: var(--space-4); }
+  .about-stat { flex-direction: row; align-items: center; justify-content: flex-start; gap: var(--space-4); }
 }
 
 /* Ficha en código, arriba a la izquierda (decoración nerd, muy tenue) */
